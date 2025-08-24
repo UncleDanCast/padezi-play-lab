@@ -23,9 +23,9 @@ export const PadeziLandingPage = () => {
       icon: 'book-open'
     },
     {
-      id: 'declension-master',
-      title: 'Declension Master',
-      description: 'Master noun declensions with guided practice and instant feedback on case transformations',
+      id: 'question-to-case',
+      title: 'Case Detective',
+      description: 'See the questions, identify the case! Flip the challenge - given Croatian question words, select which grammatical case they belong to',
       difficulty: 'Beginner',
       icon: 'calculator'
     },
@@ -179,7 +179,7 @@ export const PadeziLandingPage = () => {
                       </div>
                       
                       <h3 className="text-fluid-xl sm:text-fluid-2xl lg:text-fluid-3xl brutalist-subtitle leading-tight mb-fluid-xs sm:mb-fluid-sm transform -skew-x-1 sm:-skew-x-2">
-                        {game.id === 'case-match' ? 'Case Match' : game.title}
+                        {game.id === 'case-match' ? 'Case Match' : game.id === 'question-to-case' ? 'Case Detective' : game.title}
                       </h3>
                       
                       <div className="w-full h-0.5 sm:h-1 bg-brutalist-black"></div>
@@ -192,7 +192,7 @@ export const PadeziLandingPage = () => {
                     </main>
 
                     <footer>
-                      <Link to={game.id === 'case-match' ? '/case-match' : '#'}>
+                      <Link to={game.id === 'case-match' ? '/case-match' : game.id === 'question-to-case' ? '/question-to-case' : '#'}>
                         <motion.button
                           className="w-full bg-brutalist-black text-brutalist-white brutalist-subtitle py-fluid-md px-fluid-md border-2 sm:border-4 border-brutalist-black hover:bg-brutalist-white hover:text-brutalist-black hover:border-brutalist-black transition-all duration-200 flex items-center justify-center gap-fluid-xs sm:gap-fluid-sm text-fluid-sm sm:text-fluid-lg brutalist-skew-right group touch-target"
                           whileHover={{
