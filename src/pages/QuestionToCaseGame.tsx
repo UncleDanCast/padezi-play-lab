@@ -38,6 +38,7 @@ const QuestionToCaseGame = () => {
   const [gameComplete, setGameComplete] = useState(false);
   const [timeLeft, setTimeLeft] = useState(30);
   const [timerActive, setTimerActive] = useState(true);
+  const [autoAdvanceTimer, setAutoAdvanceTimer] = useState<NodeJS.Timeout | null>(null);
 
   // Shuffle array function
   const shuffleArray = (array: CaseData[]) => {
@@ -89,11 +90,18 @@ const QuestionToCaseGame = () => {
       }]
     }));
     
+    const currentQuestion = cases[currentQuestionIndex];
     toast({
-      title: "Vrijeme je isteklo!",
-      description: `Točan odgovor: ${cases[currentQuestionIndex].case}`,
+      title: "Vrijeme je isteklo! • Time's up!",
+      description: `Točan odgovor: ${currentQuestion.case} • Correct answer: ${currentQuestion.case}`,
       variant: "destructive",
     });
+
+    // Auto-advance after 5 seconds
+    const timer = setTimeout(() => {
+      handleNextQuestion();
+    }, 5000);
+    setAutoAdvanceTimer(timer);
   };
 
   const handleAnswerClick = (selectedCase: CaseData) => {
@@ -110,8 +118,8 @@ const QuestionToCaseGame = () => {
       setScore(score + 1);
       setGameStats(prev => ({ ...prev, correct: prev.correct + 1, total: prev.total + 1 }));
       toast({
-        title: "Točno!",
-        description: `${currentQuestion.questions} pripada ${currentQuestion.case}u`,
+        title: "Točno! • Correct!",
+        description: `${currentQuestion.questions} pripada ${currentQuestion.case}u • ${currentQuestion.questions} belongs to ${currentQuestion.case}`,
       });
     } else {
       setGameStats(prev => ({
@@ -124,14 +132,26 @@ const QuestionToCaseGame = () => {
         }]
       }));
       toast({
-        title: "Netočno!",
-        description: `${currentQuestion.questions} pripada ${currentQuestion.case}u`,
+        title: "Netočno! • Incorrect!",
+        description: `${currentQuestion.questions} pripada ${currentQuestion.case}u • ${currentQuestion.questions} belongs to ${currentQuestion.case}`,
         variant: "destructive",
       });
     }
+
+    // Auto-advance after 5 seconds
+    const timer = setTimeout(() => {
+      handleNextQuestion();
+    }, 5000);
+    setAutoAdvanceTimer(timer);
   };
 
   const handleNextQuestion = () => {
+    // Clear auto-advance timer if it exists
+    if (autoAdvanceTimer) {
+      clearTimeout(autoAdvanceTimer);
+      setAutoAdvanceTimer(null);
+    }
+    
     if (gameStats.total >= 7) {
       setGameComplete(true);
       return;
@@ -148,6 +168,12 @@ const QuestionToCaseGame = () => {
   };
 
   const resetGame = () => {
+    // Clear auto-advance timer if it exists
+    if (autoAdvanceTimer) {
+      clearTimeout(autoAdvanceTimer);
+      setAutoAdvanceTimer(null);
+    }
+    
     const randomIndex = Math.floor(Math.random() * cases.length);
     setCurrentQuestionIndex(randomIndex);
     setScore(0);
@@ -159,6 +185,15 @@ const QuestionToCaseGame = () => {
     setTimeLeft(30);
     setTimerActive(true);
   };
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (autoAdvanceTimer) {
+        clearTimeout(autoAdvanceTimer);
+      }
+    };
+  }, [autoAdvanceTimer]);
 
   const getOptionStyle = (option: CaseData) => {
     if (!showFeedback) return 'bg-brutalist-white text-brutalist-black border-brutalist-black hover:bg-brutalist-yellow';
