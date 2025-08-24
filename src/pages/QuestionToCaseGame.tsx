@@ -92,8 +92,8 @@ const QuestionToCaseGame = () => {
     
     const currentQuestion = cases[currentQuestionIndex];
     toast({
-      title: "Vrijeme je isteklo! • Time's up!",
-      description: `Točan odgovor: ${currentQuestion.case} • Correct answer: ${currentQuestion.case}`,
+      title: "Vrijeme je isteklo!",
+      description: `Točan odgovor: ${currentQuestion.case}\n\nTime's up! Correct answer: ${currentQuestion.case}`,
       variant: "destructive",
     });
 
@@ -118,8 +118,8 @@ const QuestionToCaseGame = () => {
       setScore(score + 1);
       setGameStats(prev => ({ ...prev, correct: prev.correct + 1, total: prev.total + 1 }));
       toast({
-        title: "Točno! • Correct!",
-        description: `${currentQuestion.questions} pripada ${currentQuestion.case}u • ${currentQuestion.questions} belongs to ${currentQuestion.case}`,
+        title: "Točno!",
+        description: `${currentQuestion.questions} pripada ${currentQuestion.case}u\n\nCorrect! ${currentQuestion.questions} belongs to ${currentQuestion.case}`,
       });
     } else {
       setGameStats(prev => ({
@@ -132,8 +132,8 @@ const QuestionToCaseGame = () => {
         }]
       }));
       toast({
-        title: "Netočno! • Incorrect!",
-        description: `${currentQuestion.questions} pripada ${currentQuestion.case}u • ${currentQuestion.questions} belongs to ${currentQuestion.case}`,
+        title: "Netočno!",
+        description: `${currentQuestion.questions} pripada ${currentQuestion.case}u\n\nIncorrect! ${currentQuestion.questions} belongs to ${currentQuestion.case}`,
         variant: "destructive",
       });
     }
