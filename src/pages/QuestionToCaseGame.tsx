@@ -43,6 +43,11 @@ const QuestionToCaseGame = () => {
     const saved = localStorage.getItem('questionToCaseHints');
     return saved !== null ? JSON.parse(saved) : true;
   });
+  const [showDemonstration, setShowDemonstration] = useState(() => {
+    const demonstrated = localStorage.getItem('questionToCaseHintsDemonstrated');
+    return demonstrated !== 'true';
+  });
+  const [userHasInteracted, setUserHasInteracted] = useState(false);
 
   // Shuffle array function
   const shuffleArray = (array: CaseData[]) => {
@@ -73,10 +78,38 @@ const QuestionToCaseGame = () => {
 
   // Save hints preference to localStorage
   useEffect(() => {
-    localStorage.setItem('questionToCaseHints', JSON.stringify(hintsMode));
-  }, [hintsMode]);
+    if (userHasInteracted) {
+      localStorage.setItem('questionToCaseHints', JSON.stringify(hintsMode));
+    }
+  }, [hintsMode, userHasInteracted]);
+
+  // Demonstration effect
+  useEffect(() => {
+    if (showDemonstration) {
+      const demonstrateHints = async () => {
+        // Wait 1 second before starting demonstration
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Toggle 3 times with 800ms intervals
+        for (let i = 0; i < 3; i++) {
+          setHintsMode(prev => !prev);
+          await new Promise(resolve => setTimeout(resolve, 800));
+        }
+        
+        // End with hints off
+        setHintsMode(false);
+        
+        // Mark demonstration as completed
+        localStorage.setItem('questionToCaseHintsDemonstrated', 'true');
+        setShowDemonstration(false);
+      };
+      
+      demonstrateHints();
+    }
+  }, [showDemonstration]);
 
   const toggleHints = () => {
+    setUserHasInteracted(true);
     setHintsMode(!hintsMode);
   };
 
@@ -472,12 +505,13 @@ const QuestionToCaseGame = () => {
             hintsMode 
               ? 'bg-beginner text-beginner-foreground border-beginner hover:bg-beginner/90' 
               : 'bg-brutalist-white text-brutalist-black border-brutalist-black hover:bg-brutalist-yellow'
-          }`}
+          } ${showDemonstration ? 'animate-pulse' : ''}`}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           title={hintsMode ? "Sakrij savjete / Hide hints" : "Prikaži savjete / Show hints"}
+          disabled={showDemonstration}
         >
-          <Lightbulb className="w-6 h-6 mb-0.5" />
+          <Lightbulb className={`w-6 h-6 mb-0.5 ${showDemonstration ? 'animate-bounce' : ''}`} />
           <div className="text-[8px] font-bold leading-none">
             <div>{hintsMode ? 'SAKRIJ' : 'SAVJETI'}</div>
             <div className="opacity-60">{hintsMode ? 'HIDE' : 'HINTS'}</div>
