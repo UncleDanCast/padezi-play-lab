@@ -407,7 +407,7 @@ const QuestionToCaseGame = () => {
             >
               <motion.button
                 onClick={handleNextQuestion}
-                className="bg-brutalist-white text-brutalist-black px-fluid-lg sm:px-fluid-xl py-fluid-md sm:py-fluid-lg border-2 sm:border-4 border-brutalist-white hover:bg-beginner hover:text-beginner-foreground transition-colors brutalist-subtitle touch-target flex flex-col items-center"
+                className="bg-brutalist-white text-brutalist-black px-fluid-lg sm:px-fluid-xl py-fluid-md sm:py-fluid-lg border-2 sm:border-4 border-brutalist-white hover:bg-beginner hover:text-beginner-foreground transition-colors brutalist-subtitle touch-target flex flex-col items-center mx-auto"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
