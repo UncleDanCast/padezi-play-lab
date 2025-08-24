@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, RotateCcw, Trophy, Clock } from 'lucide-react';
+import { ArrowLeft, RotateCcw, Trophy, Clock, Eye, EyeOff } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 
@@ -39,6 +39,10 @@ const QuestionToCaseGame = () => {
   const [timeLeft, setTimeLeft] = useState(30);
   const [timerActive, setTimerActive] = useState(true);
   const [autoAdvanceTimer, setAutoAdvanceTimer] = useState<NodeJS.Timeout | null>(null);
+  const [hintsMode, setHintsMode] = useState(() => {
+    const saved = localStorage.getItem('questionToCaseHints');
+    return saved !== null ? JSON.parse(saved) : true;
+  });
 
   // Shuffle array function
   const shuffleArray = (array: CaseData[]) => {
@@ -66,6 +70,15 @@ const QuestionToCaseGame = () => {
     setCurrentQuestionIndex(randomIndex);
     setShuffledOptions(generateOptionsWithCorrectAnswer(randomIndex));
   }, []);
+
+  // Save hints preference to localStorage
+  useEffect(() => {
+    localStorage.setItem('questionToCaseHints', JSON.stringify(hintsMode));
+  }, [hintsMode]);
+
+  const toggleHints = () => {
+    setHintsMode(!hintsMode);
+  };
 
   // Timer logic
   useEffect(() => {
@@ -325,6 +338,19 @@ const QuestionToCaseGame = () => {
             <div className="bg-brutalist-black text-brutalist-white px-2.5 py-1 border border-brutalist-black text-sm font-bold">
               {score}/7
             </div>
+
+            <motion.button
+              onClick={toggleHints}
+              className={`px-2 py-1 border text-sm font-bold transition-colors touch-target ${
+                hintsMode 
+                  ? 'bg-beginner text-beginner-foreground border-beginner' 
+                  : 'bg-brutalist-gray text-brutalist-white border-brutalist-gray'
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {hintsMode ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+            </motion.button>
             
             <div className={`px-2.5 py-1 border flex items-center gap-1 text-sm font-bold ${
               timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
@@ -351,6 +377,20 @@ const QuestionToCaseGame = () => {
               <div className="bg-brutalist-black text-brutalist-white px-fluid-md py-fluid-sm border-4 border-brutalist-black brutalist-subtitle">
                 Rezultat: {score}/7
               </div>
+
+              <motion.button
+                onClick={toggleHints}
+                className={`px-fluid-md py-fluid-sm border-4 brutalist-subtitle transition-colors touch-target flex items-center gap-fluid-xs ${
+                  hintsMode 
+                    ? 'bg-beginner text-beginner-foreground border-beginner' 
+                    : 'bg-brutalist-gray text-brutalist-white border-brutalist-gray'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {hintsMode ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                <span>{hintsMode ? 'SAKRIJ' : 'POKAZI'}</span>
+              </motion.button>
               
               <div className={`px-fluid-md py-fluid-sm border-4 flex items-center gap-fluid-xs brutalist-subtitle ${
                 timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
@@ -379,9 +419,11 @@ const QuestionToCaseGame = () => {
                 <h1 className="text-fluid-2xl sm:text-fluid-4xl lg:text-fluid-5xl brutalist-title mb-fluid-xs sm:mb-fluid-sm break-words leading-tight">
                   {cases[currentQuestionIndex].questions}
                 </h1>
-                <p className="text-fluid-sm sm:text-fluid-lg font-bold tracking-wide opacity-90">
-                  {cases[currentQuestionIndex].description}
-                </p>
+                {hintsMode && (
+                  <p className="text-fluid-sm sm:text-fluid-lg font-bold tracking-wide opacity-90">
+                    {cases[currentQuestionIndex].description}
+                  </p>
+                )}
               </div>
             </div>
             <p className="text-fluid-base sm:text-fluid-lg brutalist-text opacity-80 mb-1">
@@ -410,12 +452,16 @@ const QuestionToCaseGame = () => {
               <div className="text-fluid-lg sm:text-fluid-2xl brutalist-subtitle mb-1 sm:mb-fluid-xs leading-tight">
                 {option.case}
               </div>
-              <div className="text-[11px] sm:text-fluid-sm opacity-70 mb-0.5 sm:mb-fluid-xs text-center leading-tight">
-                {option.questions}
-              </div>
-              <div className="text-[9px] sm:text-fluid-xs opacity-50 text-center leading-tight">
-                {option.description}
-              </div>
+              {hintsMode && (
+                <>
+                  <div className="text-[11px] sm:text-fluid-sm opacity-70 mb-0.5 sm:mb-fluid-xs text-center leading-tight">
+                    {option.questions}
+                  </div>
+                  <div className="text-[9px] sm:text-fluid-xs opacity-50 text-center leading-tight">
+                    {option.description}
+                  </div>
+                </>
+              )}
             </motion.button>
           ))}
         </div>
