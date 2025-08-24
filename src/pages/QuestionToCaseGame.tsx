@@ -49,11 +49,21 @@ const QuestionToCaseGame = () => {
     return shuffled;
   };
 
+  // Generate options that always include the correct answer
+  const generateOptionsWithCorrectAnswer = (correctIndex: number) => {
+    const correctCase = cases[correctIndex];
+    const otherCases = cases.filter((_, index) => index !== correctIndex);
+    const shuffledOthers = shuffleArray(otherCases);
+    const selectedOthers = shuffledOthers.slice(0, 3);
+    const allOptions = [correctCase, ...selectedOthers];
+    return shuffleArray(allOptions);
+  };
+
   // Initialize game
   useEffect(() => {
-    const shuffled = shuffleArray(cases);
-    setShuffledOptions(shuffled);
-    setCurrentQuestionIndex(Math.floor(Math.random() * cases.length));
+    const randomIndex = Math.floor(Math.random() * cases.length);
+    setCurrentQuestionIndex(randomIndex);
+    setShuffledOptions(generateOptionsWithCorrectAnswer(randomIndex));
   }, []);
 
   // Timer logic
@@ -127,10 +137,10 @@ const QuestionToCaseGame = () => {
       return;
     }
     
-    // Move to next question and reshuffle options
+    // Move to next question and generate new options with correct answer
     const nextIndex = (currentQuestionIndex + 1) % cases.length;
     setCurrentQuestionIndex(nextIndex);
-    setShuffledOptions(shuffleArray(cases));
+    setShuffledOptions(generateOptionsWithCorrectAnswer(nextIndex));
     setSelectedAnswer(null);
     setShowFeedback(false);
     setTimeLeft(30);
@@ -138,10 +148,11 @@ const QuestionToCaseGame = () => {
   };
 
   const resetGame = () => {
-    setCurrentQuestionIndex(Math.floor(Math.random() * cases.length));
+    const randomIndex = Math.floor(Math.random() * cases.length);
+    setCurrentQuestionIndex(randomIndex);
     setScore(0);
     setGameStats({ correct: 0, total: 0, mistakes: [] });
-    setShuffledOptions(shuffleArray(cases));
+    setShuffledOptions(generateOptionsWithCorrectAnswer(randomIndex));
     setSelectedAnswer(null);
     setShowFeedback(false);
     setGameComplete(false);
