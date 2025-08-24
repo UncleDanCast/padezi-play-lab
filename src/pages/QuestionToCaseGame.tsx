@@ -286,11 +286,11 @@ const QuestionToCaseGame = () => {
                           <div className="text-fluid-xs sm:text-fluid-sm opacity-70">→</div>
                         </div>
                         <div className="text-fluid-xs sm:text-fluid-sm space-y-0.5">
-                          <div>Odabrano: <span className="brutalist-subtitle">{mistake.selected}</span></div>
-                          <div>Točno: <span className="brutalist-subtitle text-beginner">{mistake.correct}</span></div>
+                          <div>Odabran odgovor: <span className="brutalist-subtitle">{mistake.selected}</span></div>
+                          <div>Točan odgovor: <span className="brutalist-subtitle text-beginner">{mistake.correct}</span></div>
                         </div>
                         <div className="text-[10px] sm:text-fluid-xs opacity-50 mt-1">
-                          Selected: {mistake.selected} • Correct: {mistake.correct}
+                          Selected answer: {mistake.selected} • Correct answer: {mistake.correct}
                         </div>
                       </div>
                     </div>
