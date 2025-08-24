@@ -360,8 +360,11 @@ const QuestionToCaseGame = () => {
                 </p>
               </div>
             </div>
-            <p className="text-fluid-lg brutalist-text opacity-80">
+            <p className="text-fluid-lg brutalist-text opacity-80 mb-fluid-xs">
               Koji padež odgovara na ova pitanja?
+            </p>
+            <p className="text-fluid-sm brutalist-text opacity-50">
+              Which case corresponds to these questions?
             </p>
           </motion.div>
         </AnimatePresence>
@@ -404,11 +407,16 @@ const QuestionToCaseGame = () => {
             >
               <motion.button
                 onClick={handleNextQuestion}
-                className="bg-brutalist-white text-brutalist-black px-fluid-xl py-fluid-lg border-4 border-brutalist-white hover:bg-beginner hover:text-beginner-foreground transition-colors brutalist-subtitle touch-target"
+                className="bg-brutalist-white text-brutalist-black px-fluid-xl py-fluid-lg border-4 border-brutalist-white hover:bg-beginner hover:text-beginner-foreground transition-colors brutalist-subtitle touch-target flex flex-col items-center"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {gameStats.total >= 7 ? 'ZAVRŠI IGRU' : 'SLJEDEĆE PITANJE'}
+                <span className="mb-fluid-xs">
+                  {gameStats.total >= 7 ? 'ZAVRŠI IGRU' : 'SLJEDEĆE PITANJE'}
+                </span>
+                <span className="text-fluid-xs opacity-50">
+                  {gameStats.total >= 7 ? 'Finish Game' : 'Next Question'}
+                </span>
               </motion.button>
             </motion.div>
           )}
