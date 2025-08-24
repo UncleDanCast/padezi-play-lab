@@ -270,35 +270,6 @@ const QuestionToCaseGame = () => {
               )}
             </div>
 
-            {/* Mistakes Review */}
-            {gameStats.mistakes.length > 0 && (
-              <div className="mb-fluid-lg sm:mb-fluid-xl">
-                <h3 className="text-fluid-lg sm:text-fluid-2xl brutalist-subtitle mb-fluid-xs sm:mb-fluid-md">Greške za pregled:</h3>
-                <p className="text-fluid-xs sm:text-fluid-sm brutalist-text opacity-60 mb-fluid-sm sm:mb-fluid-md">
-                  Mistakes to Review:
-                </p>
-                <div className="space-y-fluid-xs sm:space-y-fluid-sm max-h-64 sm:max-h-80 overflow-y-auto">
-                  {gameStats.mistakes.map((mistake, index) => (
-                    <div key={index} className="bg-advanced text-advanced-foreground p-fluid-sm sm:p-fluid-md border-2 sm:border-4 border-advanced brutalist-skew-right">
-                      <div className="transform -skew-x-3 text-left">
-                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
-                          <div className="text-fluid-sm sm:text-fluid-base brutalist-subtitle">{mistake.questions}</div>
-                          <div className="text-fluid-xs sm:text-fluid-sm opacity-70">→</div>
-                        </div>
-                        <div className="text-fluid-xs sm:text-fluid-sm space-y-0.5">
-                          <div>Odabran odgovor: <span className="brutalist-subtitle">{mistake.selected}</span></div>
-                          <div>Točan odgovor: <span className="brutalist-subtitle text-beginner">{mistake.correct}</span></div>
-                        </div>
-                        <div className="text-[10px] sm:text-fluid-xs opacity-50 mt-1">
-                          Selected answer: {mistake.selected} • Correct answer: {mistake.correct}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-fluid-sm sm:gap-fluid-md justify-center">
               <motion.button
