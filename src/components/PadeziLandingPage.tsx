@@ -179,7 +179,7 @@ export const PadeziLandingPage = () => {
                       </div>
                       
                       <h3 className="text-fluid-xl sm:text-fluid-2xl lg:text-fluid-3xl brutalist-subtitle leading-tight mb-fluid-xs sm:mb-fluid-sm transform -skew-x-1 sm:-skew-x-2">
-                        {game.title}
+                        {game.id === 'case-match' ? 'Case Match' : game.title}
                       </h3>
                       
                       <div className="w-full h-0.5 sm:h-1 bg-brutalist-black"></div>
