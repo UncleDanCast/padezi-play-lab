@@ -369,54 +369,54 @@ const QuestionToCaseGame = () => {
   return (
     <div className="min-h-screen bg-brutalist-black text-brutalist-white">
       {/* Header */}
-      <header className="bg-brutalist-white text-brutalist-black border-b border-b-2 sm:border-b-4 md:border-b-6 lg:border-b-8 border-brutalist-black">
-        <div className="container-responsive py-2 sm:py-fluid-sm md:py-fluid-md lg:py-fluid-lg">
-          {/* Mobile Layout - Ultra Compact Single Row */}
+      <header className="bg-brutalist-white text-brutalist-black border-b border-b-2 sm:border-b-3 md:border-b-4 lg:border-b-6 xl:border-b-8 border-brutalist-black">
+        <div className="container-responsive py-1.5 xs:py-2 sm:py-3 md:py-4 lg:py-5 xl:py-6">
+          {/* Mobile Layout - Ultra Compact (up to md) */}
           <div className="flex items-center justify-between md:hidden">
             <Link to="/">
               <motion.button
-                className="bg-brutalist-black text-brutalist-white p-1.5 border border-brutalist-black hover:bg-brutalist-gray transition-colors touch-target"
+                className="bg-brutalist-black text-brutalist-white p-1.5 sm:p-2 border border-brutalist-black hover:bg-brutalist-gray transition-colors touch-target min-w-[44px] min-h-[44px] flex items-center justify-center"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
+                <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </motion.button>
             </Link>
             
-            <div className="bg-brutalist-black text-brutalist-white px-2.5 py-1 border border-brutalist-black text-sm font-bold">
+            <div className="bg-brutalist-black text-brutalist-white px-2.5 sm:px-3 py-1 sm:py-1.5 border border-brutalist-black text-xs sm:text-sm font-bold">
               {score}/7
             </div>
             
-            <div className={`px-2.5 py-1 border flex items-center gap-1 text-sm font-bold ${
+            <div className={`px-2.5 sm:px-3 py-1 sm:py-1.5 border flex items-center gap-1 text-xs sm:text-sm font-bold ${
               timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
             }`}>
-              <Clock className="w-3.5 h-3.5" />
+              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               {timeLeft}
             </div>
           </div>
 
-          {/* Tablet & Desktop Layout */}
+          {/* Tablet & Desktop Layout (md and up) */}
           <div className="hidden md:flex items-center justify-between">
             <Link to="/">
               <motion.button
-                className="bg-brutalist-black text-brutalist-white px-fluid-md py-fluid-sm border-4 border-brutalist-black hover:bg-brutalist-gray transition-colors flex items-center gap-fluid-xs brutalist-subtitle touch-target"
+                className="bg-brutalist-black text-brutalist-white px-4 md:px-5 lg:px-6 xl:px-8 py-2 md:py-3 lg:py-4 border-3 md:border-4 lg:border-6 border-brutalist-black hover:bg-brutalist-gray transition-colors flex items-center gap-2 md:gap-3 brutalist-subtitle touch-target text-sm md:text-base lg:text-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
-                <span className="hidden lg:inline">POVRATAK</span>
+                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" />
+                <span className="hidden lg:inline xl:inline">POVRATAK</span>
               </motion.button>
             </Link>
             
-            <div className="flex items-center gap-fluid-md md:gap-fluid-lg lg:gap-fluid-xl">
-              <div className="bg-brutalist-black text-brutalist-white px-fluid-md md:px-fluid-lg py-fluid-sm md:py-fluid-md border-4 border-brutalist-black brutalist-subtitle text-fluid-sm md:text-fluid-base">
+            <div className="flex items-center gap-4 md:gap-6 lg:gap-8 xl:gap-10">
+              <div className="bg-brutalist-black text-brutalist-white px-4 md:px-5 lg:px-6 xl:px-8 py-2 md:py-3 lg:py-4 border-3 md:border-4 lg:border-6 border-brutalist-black brutalist-subtitle text-sm md:text-base lg:text-lg">
                 Rezultat: {score}/7
               </div>
               
-              <div className={`px-fluid-md md:px-fluid-lg py-fluid-sm md:py-fluid-md border-4 flex items-center gap-fluid-xs brutalist-subtitle text-fluid-sm md:text-fluid-base ${
+              <div className={`px-4 md:px-5 lg:px-6 xl:px-8 py-2 md:py-3 lg:py-4 border-3 md:border-4 lg:border-6 flex items-center gap-2 md:gap-3 brutalist-subtitle text-sm md:text-base lg:text-lg ${
                 timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
               }`}>
-                <Clock className="w-4 h-4 md:w-5 md:h-5" />
+                <Clock className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" />
                 {timeLeft}s
               </div>
             </div>
@@ -425,60 +425,64 @@ const QuestionToCaseGame = () => {
       </header>
 
       {/* Main Game Area */}
-      <main className="container-responsive py-fluid-md sm:py-fluid-lg md:py-fluid-xl lg:py-fluid-2xl flex-1 flex flex-col justify-center">
+      <main className="container-responsive py-4 xs:py-6 sm:py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 flex-1 flex flex-col justify-center min-h-[calc(100vh-120px)]">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentQuestionIndex}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="text-center mb-fluid-lg sm:mb-fluid-xl md:mb-fluid-2xl"
+            className="text-center mb-6 xs:mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20"
           >
-            {/* Question Box - Highlighted */}
-            <div className="bg-intermediate text-intermediate-foreground p-fluid-sm sm:p-fluid-md md:p-fluid-lg lg:p-fluid-xl border-4 sm:border-6 md:border-8 border-intermediate max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto mb-fluid-md sm:mb-fluid-lg md:mb-fluid-xl brutalist-skew-right">
+            {/* Question Box - Responsive and optimized */}
+            <div className="bg-intermediate text-intermediate-foreground p-3 xs:p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 border-3 sm:border-4 md:border-6 lg:border-8 border-intermediate w-full max-w-sm xs:max-w-md sm:max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 brutalist-skew-right">
               <div className="transform -skew-x-12">
-                <h1 className="text-fluid-xl sm:text-fluid-2xl md:text-fluid-3xl lg:text-fluid-4xl xl:text-fluid-5xl brutalist-title mb-fluid-xs sm:mb-fluid-sm md:mb-fluid-md break-words leading-tight">
+                <h1 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl brutalist-title mb-2 xs:mb-3 sm:mb-4 md:mb-6 break-words leading-tight">
                   {cases[currentQuestionIndex].questions}
                 </h1>
                 {hintsMode && (
-                  <p className="text-fluid-xs sm:text-fluid-sm md:text-fluid-base lg:text-fluid-lg font-bold tracking-wide opacity-90">
+                  <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold tracking-wide opacity-90 leading-snug">
                     {cases[currentQuestionIndex].description}
                   </p>
                 )}
               </div>
             </div>
-            <p className="text-fluid-sm sm:text-fluid-base md:text-fluid-lg brutalist-text opacity-80 mb-1">
-              Koji padež odgovara na ova pitanja?
-            </p>
-            <p className="text-fluid-xs sm:text-fluid-sm md:text-fluid-base brutalist-text opacity-50">
-              Which case corresponds to these questions?
-            </p>
+            
+            {/* Instructions - Responsive typography */}
+            <div className="space-y-1 xs:space-y-2">
+              <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl brutalist-text opacity-80">
+                Koji padež odgovara na ova pitanja?
+              </p>
+              <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl brutalist-text opacity-50">
+                Which case corresponds to these questions?
+              </p>
+            </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* Answer Options Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-fluid-sm sm:gap-fluid-md md:gap-fluid-lg lg:gap-fluid-xl max-w-2xl sm:max-w-4xl md:max-w-6xl lg:max-w-7xl mx-auto mb-fluid-lg sm:mb-fluid-xl md:mb-fluid-2xl">
+        {/* Answer Options Grid - Comprehensive responsive grid */}
+        <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 xs:gap-4 sm:gap-6 md:gap-8 lg:gap-6 xl:gap-8 2xl:gap-10 w-full max-w-sm xs:max-w-md sm:max-w-3xl md:max-w-5xl lg:max-w-7xl xl:max-w-screen-2xl mx-auto mb-6 xs:mb-8 sm:mb-12 md:mb-16 lg:mb-20">
           {shuffledOptions.slice(0, 4).map((option, index) => (
             <motion.button
               key={`${option.case}-${currentQuestionIndex}`}
               onClick={() => handleAnswerClick(option)}
               disabled={showFeedback}
-              className={`p-fluid-sm sm:p-fluid-md md:p-fluid-lg lg:p-fluid-xl border-2 sm:border-4 md:border-6 transition-all duration-300 brutalist-text min-h-[80px] sm:min-h-[120px] md:min-h-[140px] lg:min-h-[160px] flex flex-col justify-center items-center touch-target rounded-md md:rounded-lg ${getOptionStyle(option)}`}
+              className={`p-3 xs:p-4 sm:p-6 md:p-8 lg:p-6 xl:p-8 2xl:p-10 border-2 sm:border-3 md:border-4 lg:border-5 xl:border-6 transition-all duration-300 brutalist-text min-h-[80px] xs:min-h-[100px] sm:min-h-[120px] md:min-h-[140px] lg:min-h-[160px] xl:min-h-[180px] flex flex-col justify-center items-center touch-target rounded-md sm:rounded-lg md:rounded-xl text-center ${getOptionStyle(option)}`}
               whileHover={!showFeedback ? { scale: 1.02, rotate: index % 2 === 0 ? 1 : -1 } : {}}
               whileTap={!showFeedback ? { scale: 0.98 } : {}}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <div className="text-fluid-base sm:text-fluid-lg md:text-fluid-xl lg:text-fluid-2xl brutalist-subtitle mb-1 sm:mb-fluid-xs md:mb-fluid-sm leading-tight">
+              <div className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl brutalist-subtitle mb-1 xs:mb-2 sm:mb-3 md:mb-4 leading-tight">
                 {option.case}
               </div>
               {hintsMode && (
                 <>
-                  <div className="text-[10px] sm:text-[11px] md:text-fluid-sm lg:text-fluid-base opacity-70 mb-0.5 sm:mb-fluid-xs md:mb-fluid-sm text-center leading-tight">
+                  <div className="text-[10px] xs:text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl opacity-70 mb-1 xs:mb-2 sm:mb-3 text-center leading-tight px-1">
                     {option.questions}
                   </div>
-                  <div className="text-[8px] sm:text-[9px] md:text-fluid-xs lg:text-fluid-sm opacity-50 text-center leading-tight">
+                  <div className="text-[8px] xs:text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-lg opacity-50 text-center leading-tight px-1">
                     {option.description}
                   </div>
                 </>
@@ -487,7 +491,7 @@ const QuestionToCaseGame = () => {
           ))}
         </div>
 
-        {/* Next Button */}
+        {/* Next Button - Responsive positioning and sizing */}
         <AnimatePresence>
           {showFeedback && (
             <motion.div
@@ -498,14 +502,14 @@ const QuestionToCaseGame = () => {
             >
               <motion.button
                 onClick={handleNextQuestion}
-                className="bg-brutalist-white text-brutalist-black px-fluid-lg sm:px-fluid-xl py-fluid-md sm:py-fluid-lg border-2 sm:border-4 border-brutalist-white hover:bg-beginner hover:text-beginner-foreground transition-colors brutalist-subtitle touch-target flex flex-col items-center mx-auto"
+                className="bg-brutalist-white text-brutalist-black px-6 xs:px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 py-3 xs:py-4 sm:py-6 md:py-8 lg:py-10 border-2 sm:border-3 md:border-4 lg:border-6 border-brutalist-white hover:bg-beginner hover:text-beginner-foreground transition-colors brutalist-subtitle touch-target flex flex-col items-center mx-auto text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span className="mb-1 sm:mb-fluid-xs text-fluid-base sm:text-fluid-lg">
+                <span className="mb-1 xs:mb-2 sm:mb-3">
                   {gameStats.total >= 7 ? 'ZAVRŠI IGRU' : 'SLJEDEĆE PITANJE'}
                 </span>
-                <span className="text-[10px] sm:text-fluid-xs opacity-50">
+                <span className="text-[10px] xs:text-xs sm:text-sm md:text-base lg:text-lg opacity-50">
                   {gameStats.total >= 7 ? 'Finish Game' : 'Next Question'}
                 </span>
               </motion.button>
@@ -513,10 +517,10 @@ const QuestionToCaseGame = () => {
           )}
         </AnimatePresence>
 
-        {/* Floating Hints Button */}
+        {/* Floating Hints Button - Multi-resolution responsive */}
         <motion.button
           onClick={toggleHints}
-          className={`fixed bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border-4 md:border-6 shadow-2xl z-50 flex flex-col items-center justify-center transition-all duration-300 ${
+          className={`fixed bottom-3 xs:bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 right-3 xs:right-4 sm:right-6 md:right-8 lg:right-10 w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 xl:w-24 xl:h-24 rounded-full border-3 sm:border-4 md:border-5 lg:border-6 shadow-2xl z-50 flex flex-col items-center justify-center transition-all duration-300 ${
             hintsMode 
               ? 'bg-beginner text-beginner-foreground border-beginner hover:bg-beginner/90' 
               : 'bg-brutalist-white text-brutalist-black border-brutalist-black hover:bg-brutalist-yellow'
@@ -526,17 +530,17 @@ const QuestionToCaseGame = () => {
           title={hintsMode ? "Sakrij savjete / Hide hints" : "Prikaži savjete / Show hints"}
           disabled={showDemonstration}
         >
-          <Lightbulb className={`w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 mb-0.5 md:mb-1 ${showDemonstration ? 'animate-bounce' : ''}`} />
-          <div className="text-[7px] sm:text-[8px] md:text-[10px] font-bold leading-none">
+          <Lightbulb className={`w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-10 xl:h-10 mb-0.5 xs:mb-1 ${showDemonstration ? 'animate-bounce' : ''}`} />
+          <div className="text-[6px] xs:text-[7px] sm:text-[8px] md:text-[9px] lg:text-[10px] xl:text-xs font-bold leading-none text-center">
             <div>{hintsMode ? 'SAKRIJ' : 'SAVJETI'}</div>
             <div className="opacity-60">{hintsMode ? 'HIDE' : 'HINTS'}</div>
           </div>
         </motion.button>
 
-        {/* Temporary Reset Button for Testing */}
+        {/* Temporary Reset Button - Multi-resolution responsive */}
         <motion.button
           onClick={resetDemonstration}
-          className="fixed bottom-4 sm:bottom-6 md:bottom-8 left-4 sm:left-6 md:left-8 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border-2 md:border-4 bg-brutalist-gray text-brutalist-white z-50 flex items-center justify-center text-[8px] sm:text-xs md:text-sm font-bold hover:bg-brutalist-black transition-colors"
+          className="fixed bottom-3 xs:bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-3 xs:left-4 sm:left-6 md:left-8 lg:left-10 w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full border-2 sm:border-3 md:border-4 bg-brutalist-gray text-brutalist-white z-50 flex items-center justify-center text-[6px] xs:text-[8px] sm:text-xs md:text-sm lg:text-base font-bold hover:bg-brutalist-black transition-colors"
           title="Reset demonstration (for testing)"
         >
           RESET
