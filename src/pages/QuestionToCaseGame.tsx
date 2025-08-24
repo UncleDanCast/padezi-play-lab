@@ -323,8 +323,11 @@ const QuestionToCaseGame = () => {
               <div className="text-fluid-2xl brutalist-subtitle mb-fluid-xs">
                 {option.case}
               </div>
-              <div className="text-fluid-sm opacity-70">
+              <div className="text-fluid-sm opacity-70 mb-fluid-xs">
                 {option.questions}
+              </div>
+              <div className="text-fluid-xs opacity-50">
+                {option.description}
               </div>
             </motion.button>
           ))}
