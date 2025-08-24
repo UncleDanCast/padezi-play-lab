@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, RotateCcw, Trophy, Clock, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, RotateCcw, Trophy, Clock, Lightbulb } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 
@@ -338,19 +338,6 @@ const QuestionToCaseGame = () => {
             <div className="bg-brutalist-black text-brutalist-white px-2.5 py-1 border border-brutalist-black text-sm font-bold">
               {score}/7
             </div>
-
-            <motion.button
-              onClick={toggleHints}
-              className={`px-2 py-1 border text-sm font-bold transition-colors touch-target ${
-                hintsMode 
-                  ? 'bg-beginner text-beginner-foreground border-beginner' 
-                  : 'bg-brutalist-gray text-brutalist-white border-brutalist-gray'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {hintsMode ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
-            </motion.button>
             
             <div className={`px-2.5 py-1 border flex items-center gap-1 text-sm font-bold ${
               timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
@@ -377,20 +364,6 @@ const QuestionToCaseGame = () => {
               <div className="bg-brutalist-black text-brutalist-white px-fluid-md py-fluid-sm border-4 border-brutalist-black brutalist-subtitle">
                 Rezultat: {score}/7
               </div>
-
-              <motion.button
-                onClick={toggleHints}
-                className={`px-fluid-md py-fluid-sm border-4 brutalist-subtitle transition-colors touch-target flex items-center gap-fluid-xs ${
-                  hintsMode 
-                    ? 'bg-beginner text-beginner-foreground border-beginner' 
-                    : 'bg-brutalist-gray text-brutalist-white border-brutalist-gray'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {hintsMode ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-                <span>{hintsMode ? 'SAKRIJ' : 'POKAZI'}</span>
-              </motion.button>
               
               <div className={`px-fluid-md py-fluid-sm border-4 flex items-center gap-fluid-xs brutalist-subtitle ${
                 timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
@@ -491,6 +464,25 @@ const QuestionToCaseGame = () => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Floating Hints Button */}
+        <motion.button
+          onClick={toggleHints}
+          className={`fixed bottom-6 right-6 w-16 h-16 rounded-full border-4 shadow-2xl z-50 flex flex-col items-center justify-center transition-all duration-300 ${
+            hintsMode 
+              ? 'bg-beginner text-beginner-foreground border-beginner hover:bg-beginner/90' 
+              : 'bg-brutalist-white text-brutalist-black border-brutalist-black hover:bg-brutalist-yellow'
+          }`}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          title={hintsMode ? "Sakrij savjete / Hide hints" : "Prikaži savjete / Show hints"}
+        >
+          <Lightbulb className="w-6 h-6 mb-0.5" />
+          <div className="text-[8px] font-bold leading-none">
+            <div>{hintsMode ? 'SAKRIJ' : 'SAVJETI'}</div>
+            <div className="opacity-60">{hintsMode ? 'HIDE' : 'HINTS'}</div>
+          </div>
+        </motion.button>
       </main>
     </div>
   );
