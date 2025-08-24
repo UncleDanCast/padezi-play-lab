@@ -18,7 +18,7 @@ export const PadeziLandingPage = () => {
     {
       id: 'case-match',
       title: 'Padež Povezivanje',
-      description: 'Match Croatian grammatical cases with their corresponding questions through quick, interactive challenges',
+      description: 'Test your speed matching Croatian case names to their questions. Fast-paced, timed challenges with immediate feedback - no grammar tables, just pure case recognition practice',
       difficulty: 'Beginner',
       icon: 'book-open'
     },
