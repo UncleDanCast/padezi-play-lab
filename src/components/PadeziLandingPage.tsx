@@ -150,14 +150,14 @@ export const PadeziLandingPage = () => {
             </div>
 
             {/* Responsive grid layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-fluid-lg sm:gap-fluid-xl lg:gap-fluid-2xl">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4 xs:gap-6 sm:gap-8 md:gap-6 lg:gap-8 xl:gap-12 2xl:gap-16">
               {difficultyGames.map((game, index) => (
                 <motion.article
                   key={game.id}
-                  className="bg-brutalist-white text-brutalist-black border-4 sm:border-6 lg:border-8 border-brutalist-black relative overflow-hidden group brutalist-hover"
+                  className="bg-brutalist-white text-brutalist-black border-2 xs:border-3 sm:border-4 md:border-5 lg:border-6 xl:border-8 border-brutalist-black relative overflow-hidden group brutalist-hover hover:scale-105 md:hover:rotate-1 md:odd:hover:-rotate-1 transition-transform duration-300"
                   whileHover={{
-                    scale: window.innerWidth > 768 ? 1.02 : 1.01,
-                    rotate: window.innerWidth > 768 ? (index % 2 === 0 ? 1 : -1) : 0
+                    scale: 1.02,
+                    rotate: index % 2 === 0 ? 1 : -1
                   }}
                   transition={{
                     duration: 0.3,
@@ -165,47 +165,47 @@ export const PadeziLandingPage = () => {
                   }}
                 >
                   {/* Geometric Corner Elements - Responsive */}
-                  <div className="absolute top-0 right-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16 bg-brutalist-black transform rotate-45 translate-x-4 -translate-y-4 sm:translate-x-6 sm:-translate-y-6 lg:translate-x-8 lg:-translate-y-8 group-hover:bg-brutalist-red transition-colors duration-300"></div>
+                  <div className="absolute top-0 right-0 w-6 h-6 xs:w-8 xs:h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 bg-brutalist-black transform rotate-45 translate-x-3 -translate-y-3 xs:translate-x-4 xs:-translate-y-4 sm:translate-x-5 sm:-translate-y-5 md:translate-x-6 md:-translate-y-6 lg:translate-x-8 lg:-translate-y-8 group-hover:bg-brutalist-red transition-colors duration-300"></div>
                   
-                  <div className="p-fluid-md sm:p-fluid-lg lg:p-fluid-xl relative z-10">
-                    <header className="mb-fluid-md sm:mb-fluid-lg">
-                      <div className="flex items-start justify-between mb-fluid-sm sm:mb-fluid-md">
-                        <div className="bg-brutalist-black text-brutalist-white p-fluid-sm sm:p-fluid-md brutalist-rotate-left touch-target">
-                          {getIcon(game.icon)}
+                  <div className="p-4 xs:p-5 sm:p-6 md:p-7 lg:p-8 xl:p-10 2xl:p-12 relative z-10">
+                      <header className="mb-4 xs:mb-5 sm:mb-6 md:mb-7 lg:mb-8">
+                        <div className="flex items-start justify-between mb-3 xs:mb-4 sm:mb-5 md:mb-6">
+                          <div className="bg-brutalist-black text-brutalist-white p-2 xs:p-3 sm:p-4 md:p-5 lg:p-6 brutalist-rotate-left touch-target">
+                            {getIcon(game.icon)}
+                          </div>
+                          <div className={`px-2 xs:px-3 sm:px-4 py-1 xs:py-1.5 sm:py-2 ${getDifficultyStyles(game.difficulty)} brutalist-skew-right text-xs sm:text-sm md:text-base brutalist-subtitle touch-target`}>
+                            <span className="transform -skew-x-3 xs:-skew-x-6 sm:-skew-x-9 md:-skew-x-12 inline-block">{game.difficulty}</span>
+                          </div>
                         </div>
-                        <div className={`px-fluid-sm py-fluid-xs ${getDifficultyStyles(game.difficulty)} brutalist-skew-right text-fluid-xs brutalist-subtitle touch-target`}>
-                          <span className="transform -skew-x-6 sm:-skew-x-12 inline-block">{game.difficulty}</span>
-                        </div>
-                      </div>
                       
-                      <h3 className="text-fluid-xl sm:text-fluid-2xl lg:text-fluid-3xl brutalist-subtitle leading-tight mb-fluid-xs sm:mb-fluid-sm transform -skew-x-1 sm:-skew-x-2">
-                        {game.id === 'case-match' ? 'Case Match' : game.id === 'question-to-case' ? 'Case Detective' : game.title}
-                      </h3>
-                      
-                      <div className="w-full h-0.5 sm:h-1 bg-brutalist-black"></div>
+                        <h3 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl brutalist-subtitle leading-tight mb-2 xs:mb-3 sm:mb-4 transform -skew-x-1 sm:-skew-x-2">
+                          {game.id === 'case-match' ? 'Case Match' : game.id === 'question-to-case' ? 'Case Detective' : game.title}
+                        </h3>
+                        
+                        <div className="w-full h-0.5 sm:h-1 md:h-1.5 lg:h-2 bg-brutalist-black"></div>
                     </header>
 
-                    <main className="mb-fluid-md sm:mb-fluid-lg">
-                      <p className="brutalist-text leading-relaxed">
-                        {game.description}
-                      </p>
-                    </main>
+                      <main className="mb-4 xs:mb-5 sm:mb-6 md:mb-7 lg:mb-8">
+                        <p className="text-sm xs:text-base sm:text-lg md:text-xl leading-relaxed brutalist-text">
+                          {game.description}
+                        </p>
+                      </main>
 
                     <footer>
                       <Link to={game.id === 'case-match' ? '/case-match' : game.id === 'question-to-case' ? '/question-to-case' : '#'}>
                         <motion.button
-                          className="w-full bg-brutalist-black text-brutalist-white brutalist-subtitle py-fluid-md px-fluid-md border-2 sm:border-4 border-brutalist-black hover:bg-brutalist-white hover:text-brutalist-black hover:border-brutalist-black transition-all duration-200 flex items-center justify-center gap-fluid-xs sm:gap-fluid-sm text-fluid-sm sm:text-fluid-lg brutalist-skew-right group touch-target"
+                          className="w-full bg-brutalist-black text-brutalist-white brutalist-subtitle py-3 xs:py-4 sm:py-5 md:py-6 px-4 xs:px-5 sm:px-6 md:px-7 border-2 xs:border-3 sm:border-4 md:border-5 border-brutalist-black hover:bg-brutalist-white hover:text-brutalist-black hover:border-brutalist-black transition-all duration-200 flex items-center justify-center gap-2 xs:gap-3 sm:gap-4 text-sm xs:text-base sm:text-lg md:text-xl brutalist-skew-right group touch-target min-h-[44px] xs:min-h-[48px] sm:min-h-[52px] md:min-h-[56px]"
                           whileHover={{
-                            scale: window.innerWidth > 768 ? 1.05 : 1.02,
-                            skewX: window.innerWidth > 768 ? -3 : -1
+                            scale: 1.02,
+                            skewX: -2
                           }}
                           whileTap={{
-                            scale: 0.95
+                            scale: 0.98
                           }}
                         >
-                          <Play className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 group-hover:rotate-90 transition-transform duration-300" strokeWidth={3} />
-                          <span className="transform -skew-x-1 sm:-skew-x-3">START GAME</span>
-                          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-300" strokeWidth={3} />
+                          <Play className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 group-hover:rotate-90 transition-transform duration-300" strokeWidth={3} />
+                          <span className="transform -skew-x-1 xs:-skew-x-2 sm:-skew-x-3 font-semibold">START GAME</span>
+                          <ArrowRight className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 group-hover:translate-x-1 xs:group-hover:translate-x-1.5 sm:group-hover:translate-x-2 transition-transform duration-300" strokeWidth={3} />
                         </motion.button>
                       </Link>
                     </footer>
