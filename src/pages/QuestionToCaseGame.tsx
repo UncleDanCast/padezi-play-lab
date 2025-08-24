@@ -290,12 +290,12 @@ const QuestionToCaseGame = () => {
             className="text-center mb-fluid-xl"
           >
             {/* Question Box - Highlighted */}
-            <div className="bg-intermediate text-intermediate-foreground p-fluid-lg border-8 border-intermediate max-w-2xl mx-auto mb-fluid-lg brutalist-skew-right">
+            <div className="bg-intermediate text-intermediate-foreground p-fluid-lg border-8 border-intermediate max-w-3xl mx-auto mb-fluid-lg brutalist-skew-right">
               <div className="transform -skew-x-3">
-                <h1 className="text-fluid-5xl sm:text-fluid-6xl brutalist-title mb-fluid-sm">
+                <h1 className="text-fluid-3xl sm:text-fluid-4xl lg:text-fluid-5xl brutalist-title mb-fluid-sm break-words">
                   {cases[currentQuestionIndex].questions}
                 </h1>
-                <p className="text-fluid-lg brutalist-text opacity-90">
+                <p className="text-fluid-base sm:text-fluid-lg brutalist-text opacity-90">
                   {cases[currentQuestionIndex].description}
                 </p>
               </div>
