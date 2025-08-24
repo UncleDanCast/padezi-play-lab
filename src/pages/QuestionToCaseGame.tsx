@@ -117,10 +117,11 @@ const QuestionToCaseGame = () => {
     if (isCorrect) {
       setScore(score + 1);
       setGameStats(prev => ({ ...prev, correct: prev.correct + 1, total: prev.total + 1 }));
-      toast({
-        title: "Točno!",
-        description: `${currentQuestion.questions} pripada ${currentQuestion.case}u\n\nCorrect! ${currentQuestion.questions} belongs to ${currentQuestion.case}`,
-      });
+    toast({
+      title: "Točno!",
+      description: `${currentQuestion.questions} pripada ${currentQuestion.case}u\n\nCorrect! ${currentQuestion.questions} belongs to ${currentQuestion.case}`,
+      variant: "success",
+    });
     } else {
       setGameStats(prev => ({
         ...prev,
