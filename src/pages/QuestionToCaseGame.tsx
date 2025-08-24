@@ -87,21 +87,29 @@ const QuestionToCaseGame = () => {
   useEffect(() => {
     if (showDemonstration) {
       const demonstrateHints = async () => {
-        // Wait 1 second before starting demonstration
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        console.log('Starting hints demonstration...');
         
-        // Toggle 3 times with 800ms intervals
+        // Wait 2 seconds before starting demonstration
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Toggle 3 times with 1.2 second intervals
         for (let i = 0; i < 3; i++) {
+          console.log(`Demonstration toggle ${i + 1}`);
           setHintsMode(prev => !prev);
-          await new Promise(resolve => setTimeout(resolve, 800));
+          await new Promise(resolve => setTimeout(resolve, 1200));
         }
         
         // End with hints off
+        console.log('Ending demonstration with hints off');
         setHintsMode(false);
+        
+        // Wait a bit more before completing
+        await new Promise(resolve => setTimeout(resolve, 1000));
         
         // Mark demonstration as completed
         localStorage.setItem('questionToCaseHintsDemonstrated', 'true');
         setShowDemonstration(false);
+        console.log('Demonstration completed');
       };
       
       demonstrateHints();
@@ -111,6 +119,13 @@ const QuestionToCaseGame = () => {
   const toggleHints = () => {
     setUserHasInteracted(true);
     setHintsMode(!hintsMode);
+  };
+
+  // Reset demonstration for testing (you can remove this later)
+  const resetDemonstration = () => {
+    localStorage.removeItem('questionToCaseHintsDemonstrated');
+    setShowDemonstration(true);
+    setUserHasInteracted(false);
   };
 
   // Timer logic
@@ -516,6 +531,15 @@ const QuestionToCaseGame = () => {
             <div>{hintsMode ? 'SAKRIJ' : 'SAVJETI'}</div>
             <div className="opacity-60">{hintsMode ? 'HIDE' : 'HINTS'}</div>
           </div>
+        </motion.button>
+
+        {/* Temporary Reset Button for Testing */}
+        <motion.button
+          onClick={resetDemonstration}
+          className="fixed bottom-6 left-6 w-12 h-12 rounded-full border-2 bg-brutalist-gray text-brutalist-white z-50 flex items-center justify-center text-xs font-bold hover:bg-brutalist-black"
+          title="Reset demonstration (for testing)"
+        >
+          RESET
         </motion.button>
       </main>
     </div>
