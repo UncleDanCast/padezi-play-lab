@@ -285,8 +285,38 @@ const QuestionToCaseGame = () => {
     <div className="min-h-screen bg-brutalist-black text-brutalist-white">
       {/* Header */}
       <header className="bg-brutalist-white text-brutalist-black border-b-4 sm:border-b-8 border-brutalist-black">
-        <div className="container-responsive py-fluid-md">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-fluid-sm">
+        <div className="container-responsive py-fluid-sm sm:py-fluid-md">
+          {/* Mobile Layout - Stacked */}
+          <div className="flex flex-col gap-fluid-sm sm:hidden">
+            <div className="flex items-center justify-between">
+              <Link to="/">
+                <motion.button
+                  className="bg-brutalist-black text-brutalist-white px-fluid-sm py-fluid-xs border-2 border-brutalist-black hover:bg-brutalist-gray transition-colors flex items-center gap-fluid-xs brutalist-subtitle text-sm touch-target"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <ArrowLeft className="w-3 h-3" />
+                  POVRATAK
+                </motion.button>
+              </Link>
+              
+              <div className="bg-brutalist-black text-brutalist-white px-fluid-sm py-fluid-xs border-2 border-brutalist-black brutalist-subtitle text-sm">
+                {score}/7
+              </div>
+            </div>
+            
+            <div className="flex justify-center">
+              <div className={`px-fluid-md py-fluid-sm border-4 flex items-center gap-fluid-xs brutalist-subtitle ${
+                timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
+              }`}>
+                <Clock className="w-4 h-4" />
+                {timeLeft}s
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Layout - Horizontal */}
+          <div className="hidden sm:flex items-center justify-between">
             <Link to="/">
               <motion.button
                 className="bg-brutalist-black text-brutalist-white px-fluid-md py-fluid-sm border-4 border-brutalist-black hover:bg-brutalist-gray transition-colors flex items-center gap-fluid-xs brutalist-subtitle touch-target"
@@ -342,26 +372,26 @@ const QuestionToCaseGame = () => {
         </AnimatePresence>
 
         {/* Answer Options Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-fluid-lg max-w-4xl mx-auto mb-fluid-xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-fluid-md sm:gap-fluid-lg max-w-4xl mx-auto mb-fluid-xl">
           {shuffledOptions.slice(0, 4).map((option, index) => (
             <motion.button
               key={`${option.case}-${currentQuestionIndex}`}
               onClick={() => handleAnswerClick(option)}
               disabled={showFeedback}
-              className={`p-fluid-lg border-4 transition-all duration-300 brutalist-text min-h-[120px] flex flex-col justify-center items-center touch-target rounded-lg ${getOptionStyle(option)}`}
+              className={`p-fluid-md sm:p-fluid-lg border-4 transition-all duration-300 brutalist-text min-h-[100px] sm:min-h-[120px] flex flex-col justify-center items-center touch-target rounded-lg ${getOptionStyle(option)}`}
               whileHover={!showFeedback ? { scale: 1.02, rotate: index % 2 === 0 ? 1 : -1 } : {}}
               whileTap={!showFeedback ? { scale: 0.98 } : {}}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <div className="text-fluid-2xl brutalist-subtitle mb-fluid-xs">
+              <div className="text-fluid-xl sm:text-fluid-2xl brutalist-subtitle mb-fluid-xs">
                 {option.case}
               </div>
-              <div className="text-fluid-sm opacity-70 mb-fluid-xs">
+              <div className="text-fluid-xs sm:text-fluid-sm opacity-70 mb-fluid-xs text-center">
                 {option.questions}
               </div>
-              <div className="text-fluid-xs opacity-50">
+              <div className="text-[10px] sm:text-fluid-xs opacity-50 text-center">
                 {option.description}
               </div>
             </motion.button>
