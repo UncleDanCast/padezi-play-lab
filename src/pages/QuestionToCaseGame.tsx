@@ -369,10 +369,10 @@ const QuestionToCaseGame = () => {
   return (
     <div className="min-h-screen bg-brutalist-black text-brutalist-white">
       {/* Header */}
-      <header className="bg-brutalist-white text-brutalist-black border-b border-b-2 sm:border-b-8 border-brutalist-black">
-        <div className="container-responsive py-1 sm:py-fluid-md">
+      <header className="bg-brutalist-white text-brutalist-black border-b border-b-2 sm:border-b-4 md:border-b-6 lg:border-b-8 border-brutalist-black">
+        <div className="container-responsive py-2 sm:py-fluid-sm md:py-fluid-md lg:py-fluid-lg">
           {/* Mobile Layout - Ultra Compact Single Row */}
-          <div className="flex items-center justify-between sm:hidden">
+          <div className="flex items-center justify-between md:hidden">
             <Link to="/">
               <motion.button
                 className="bg-brutalist-black text-brutalist-white p-1.5 border border-brutalist-black hover:bg-brutalist-gray transition-colors touch-target"
@@ -395,28 +395,28 @@ const QuestionToCaseGame = () => {
             </div>
           </div>
 
-          {/* Desktop Layout - Horizontal */}
-          <div className="hidden sm:flex items-center justify-between">
+          {/* Tablet & Desktop Layout */}
+          <div className="hidden md:flex items-center justify-between">
             <Link to="/">
               <motion.button
                 className="bg-brutalist-black text-brutalist-white px-fluid-md py-fluid-sm border-4 border-brutalist-black hover:bg-brutalist-gray transition-colors flex items-center gap-fluid-xs brutalist-subtitle touch-target"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <ArrowLeft className="w-4 h-4" />
-                POVRATAK
+                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
+                <span className="hidden lg:inline">POVRATAK</span>
               </motion.button>
             </Link>
             
-            <div className="flex items-center gap-fluid-lg">
-              <div className="bg-brutalist-black text-brutalist-white px-fluid-md py-fluid-sm border-4 border-brutalist-black brutalist-subtitle">
+            <div className="flex items-center gap-fluid-md md:gap-fluid-lg lg:gap-fluid-xl">
+              <div className="bg-brutalist-black text-brutalist-white px-fluid-md md:px-fluid-lg py-fluid-sm md:py-fluid-md border-4 border-brutalist-black brutalist-subtitle text-fluid-sm md:text-fluid-base">
                 Rezultat: {score}/7
               </div>
               
-              <div className={`px-fluid-md py-fluid-sm border-4 flex items-center gap-fluid-xs brutalist-subtitle ${
+              <div className={`px-fluid-md md:px-fluid-lg py-fluid-sm md:py-fluid-md border-4 flex items-center gap-fluid-xs brutalist-subtitle text-fluid-sm md:text-fluid-base ${
                 timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
               }`}>
-                <Clock className="w-4 h-4" />
+                <Clock className="w-4 h-4 md:w-5 md:h-5" />
                 {timeLeft}s
               </div>
             </div>
@@ -425,60 +425,60 @@ const QuestionToCaseGame = () => {
       </header>
 
       {/* Main Game Area */}
-      <main className="container-responsive py-fluid-lg sm:py-fluid-xl flex-1 flex flex-col justify-center">
+      <main className="container-responsive py-fluid-md sm:py-fluid-lg md:py-fluid-xl lg:py-fluid-2xl flex-1 flex flex-col justify-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentQuestionIndex}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="text-center mb-fluid-lg sm:mb-fluid-xl"
+            className="text-center mb-fluid-lg sm:mb-fluid-xl md:mb-fluid-2xl"
           >
             {/* Question Box - Highlighted */}
-            <div className="bg-intermediate text-intermediate-foreground p-fluid-md sm:p-fluid-lg border-4 sm:border-8 border-intermediate max-w-3xl mx-auto mb-fluid-md sm:mb-fluid-lg brutalist-skew-right">
+            <div className="bg-intermediate text-intermediate-foreground p-fluid-sm sm:p-fluid-md md:p-fluid-lg lg:p-fluid-xl border-4 sm:border-6 md:border-8 border-intermediate max-w-2xl md:max-w-4xl lg:max-w-5xl mx-auto mb-fluid-md sm:mb-fluid-lg md:mb-fluid-xl brutalist-skew-right">
               <div className="transform -skew-x-12">
-                <h1 className="text-fluid-2xl sm:text-fluid-4xl lg:text-fluid-5xl brutalist-title mb-fluid-xs sm:mb-fluid-sm break-words leading-tight">
+                <h1 className="text-fluid-xl sm:text-fluid-2xl md:text-fluid-3xl lg:text-fluid-4xl xl:text-fluid-5xl brutalist-title mb-fluid-xs sm:mb-fluid-sm md:mb-fluid-md break-words leading-tight">
                   {cases[currentQuestionIndex].questions}
                 </h1>
                 {hintsMode && (
-                  <p className="text-fluid-sm sm:text-fluid-lg font-bold tracking-wide opacity-90">
+                  <p className="text-fluid-xs sm:text-fluid-sm md:text-fluid-base lg:text-fluid-lg font-bold tracking-wide opacity-90">
                     {cases[currentQuestionIndex].description}
                   </p>
                 )}
               </div>
             </div>
-            <p className="text-fluid-base sm:text-fluid-lg brutalist-text opacity-80 mb-1">
+            <p className="text-fluid-sm sm:text-fluid-base md:text-fluid-lg brutalist-text opacity-80 mb-1">
               Koji padež odgovara na ova pitanja?
             </p>
-            <p className="text-fluid-xs sm:text-fluid-sm brutalist-text opacity-50">
+            <p className="text-fluid-xs sm:text-fluid-sm md:text-fluid-base brutalist-text opacity-50">
               Which case corresponds to these questions?
             </p>
           </motion.div>
         </AnimatePresence>
 
         {/* Answer Options Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-fluid-sm sm:gap-fluid-lg max-w-4xl mx-auto mb-fluid-lg sm:mb-fluid-xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-fluid-sm sm:gap-fluid-md md:gap-fluid-lg lg:gap-fluid-xl max-w-2xl sm:max-w-4xl md:max-w-6xl lg:max-w-7xl mx-auto mb-fluid-lg sm:mb-fluid-xl md:mb-fluid-2xl">
           {shuffledOptions.slice(0, 4).map((option, index) => (
             <motion.button
               key={`${option.case}-${currentQuestionIndex}`}
               onClick={() => handleAnswerClick(option)}
               disabled={showFeedback}
-              className={`p-fluid-sm sm:p-fluid-lg border-2 sm:border-4 transition-all duration-300 brutalist-text min-h-[70px] sm:min-h-[120px] flex flex-col justify-center items-center touch-target rounded-lg ${getOptionStyle(option)}`}
+              className={`p-fluid-sm sm:p-fluid-md md:p-fluid-lg lg:p-fluid-xl border-2 sm:border-4 md:border-6 transition-all duration-300 brutalist-text min-h-[80px] sm:min-h-[120px] md:min-h-[140px] lg:min-h-[160px] flex flex-col justify-center items-center touch-target rounded-md md:rounded-lg ${getOptionStyle(option)}`}
               whileHover={!showFeedback ? { scale: 1.02, rotate: index % 2 === 0 ? 1 : -1 } : {}}
               whileTap={!showFeedback ? { scale: 0.98 } : {}}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
             >
-              <div className="text-fluid-lg sm:text-fluid-2xl brutalist-subtitle mb-1 sm:mb-fluid-xs leading-tight">
+              <div className="text-fluid-base sm:text-fluid-lg md:text-fluid-xl lg:text-fluid-2xl brutalist-subtitle mb-1 sm:mb-fluid-xs md:mb-fluid-sm leading-tight">
                 {option.case}
               </div>
               {hintsMode && (
                 <>
-                  <div className="text-[11px] sm:text-fluid-sm opacity-70 mb-0.5 sm:mb-fluid-xs text-center leading-tight">
+                  <div className="text-[10px] sm:text-[11px] md:text-fluid-sm lg:text-fluid-base opacity-70 mb-0.5 sm:mb-fluid-xs md:mb-fluid-sm text-center leading-tight">
                     {option.questions}
                   </div>
-                  <div className="text-[9px] sm:text-fluid-xs opacity-50 text-center leading-tight">
+                  <div className="text-[8px] sm:text-[9px] md:text-fluid-xs lg:text-fluid-sm opacity-50 text-center leading-tight">
                     {option.description}
                   </div>
                 </>
@@ -516,7 +516,7 @@ const QuestionToCaseGame = () => {
         {/* Floating Hints Button */}
         <motion.button
           onClick={toggleHints}
-          className={`fixed bottom-6 right-6 w-16 h-16 rounded-full border-4 shadow-2xl z-50 flex flex-col items-center justify-center transition-all duration-300 ${
+          className={`fixed bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border-4 md:border-6 shadow-2xl z-50 flex flex-col items-center justify-center transition-all duration-300 ${
             hintsMode 
               ? 'bg-beginner text-beginner-foreground border-beginner hover:bg-beginner/90' 
               : 'bg-brutalist-white text-brutalist-black border-brutalist-black hover:bg-brutalist-yellow'
@@ -526,8 +526,8 @@ const QuestionToCaseGame = () => {
           title={hintsMode ? "Sakrij savjete / Hide hints" : "Prikaži savjete / Show hints"}
           disabled={showDemonstration}
         >
-          <Lightbulb className={`w-6 h-6 mb-0.5 ${showDemonstration ? 'animate-bounce' : ''}`} />
-          <div className="text-[8px] font-bold leading-none">
+          <Lightbulb className={`w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 mb-0.5 md:mb-1 ${showDemonstration ? 'animate-bounce' : ''}`} />
+          <div className="text-[7px] sm:text-[8px] md:text-[10px] font-bold leading-none">
             <div>{hintsMode ? 'SAKRIJ' : 'SAVJETI'}</div>
             <div className="opacity-60">{hintsMode ? 'HIDE' : 'HINTS'}</div>
           </div>
@@ -536,7 +536,7 @@ const QuestionToCaseGame = () => {
         {/* Temporary Reset Button for Testing */}
         <motion.button
           onClick={resetDemonstration}
-          className="fixed bottom-6 left-6 w-12 h-12 rounded-full border-2 bg-brutalist-gray text-brutalist-white z-50 flex items-center justify-center text-xs font-bold hover:bg-brutalist-black"
+          className="fixed bottom-4 sm:bottom-6 md:bottom-8 left-4 sm:left-6 md:left-8 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full border-2 md:border-4 bg-brutalist-gray text-brutalist-white z-50 flex items-center justify-center text-[8px] sm:text-xs md:text-sm font-bold hover:bg-brutalist-black transition-colors"
           title="Reset demonstration (for testing)"
         >
           RESET
