@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Play, BookOpen, Calculator, Target, Brain, Puzzle, Gamepad2, MessageCircle, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface GameData {
   id: string;
@@ -15,9 +16,9 @@ interface GameData {
 export const PadeziLandingPage = () => {
   const games: GameData[] = [
     {
-      id: 'case-explorer',
-      title: 'Case Explorer',
-      description: 'Discover Croatian grammatical cases through interactive word exploration and contextual learning',
+      id: 'case-match',
+      title: 'Padež Povezivanje',
+      description: 'Match Croatian grammatical cases with their corresponding questions through quick, interactive challenges',
       difficulty: 'Beginner',
       icon: 'book-open'
     },
@@ -191,20 +192,22 @@ export const PadeziLandingPage = () => {
                     </main>
 
                     <footer>
-                      <motion.button
-                        className="w-full bg-brutalist-black text-brutalist-white brutalist-subtitle py-fluid-md px-fluid-md border-2 sm:border-4 border-brutalist-black hover:bg-brutalist-white hover:text-brutalist-black hover:border-brutalist-black transition-all duration-200 flex items-center justify-center gap-fluid-xs sm:gap-fluid-sm text-fluid-sm sm:text-fluid-lg brutalist-skew-right group touch-target"
-                        whileHover={{
-                          scale: window.innerWidth > 768 ? 1.05 : 1.02,
-                          skewX: window.innerWidth > 768 ? -3 : -1
-                        }}
-                        whileTap={{
-                          scale: 0.95
-                        }}
-                      >
-                        <Play className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 group-hover:rotate-90 transition-transform duration-300" strokeWidth={3} />
-                        <span className="transform -skew-x-1 sm:-skew-x-3">START GAME</span>
-                        <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-300" strokeWidth={3} />
-                      </motion.button>
+                      <Link to={game.id === 'case-match' ? '/case-match' : '#'}>
+                        <motion.button
+                          className="w-full bg-brutalist-black text-brutalist-white brutalist-subtitle py-fluid-md px-fluid-md border-2 sm:border-4 border-brutalist-black hover:bg-brutalist-white hover:text-brutalist-black hover:border-brutalist-black transition-all duration-200 flex items-center justify-center gap-fluid-xs sm:gap-fluid-sm text-fluid-sm sm:text-fluid-lg brutalist-skew-right group touch-target"
+                          whileHover={{
+                            scale: window.innerWidth > 768 ? 1.05 : 1.02,
+                            skewX: window.innerWidth > 768 ? -3 : -1
+                          }}
+                          whileTap={{
+                            scale: 0.95
+                          }}
+                        >
+                          <Play className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 group-hover:rotate-90 transition-transform duration-300" strokeWidth={3} />
+                          <span className="transform -skew-x-1 sm:-skew-x-3">START GAME</span>
+                          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 group-hover:translate-x-1 sm:group-hover:translate-x-2 transition-transform duration-300" strokeWidth={3} />
+                        </motion.button>
+                      </Link>
                     </footer>
                   </div>
                 </motion.article>
