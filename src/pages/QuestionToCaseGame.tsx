@@ -223,30 +223,75 @@ const QuestionToCaseGame = () => {
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="bg-brutalist-white text-brutalist-black p-fluid-xl border-8 border-brutalist-black text-center"
+            className="bg-brutalist-white text-brutalist-black p-fluid-md sm:p-fluid-xl border-4 sm:border-8 border-brutalist-black text-center"
           >
-            <Trophy className="w-16 h-16 mx-auto mb-fluid-lg text-brutalist-yellow" />
-            <h1 className="text-fluid-5xl brutalist-title mb-fluid-lg">IGRA ZAVRŠENA!</h1>
+            <Trophy className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-fluid-md sm:mb-fluid-lg text-brutalist-yellow" />
+            <h1 className="text-fluid-3xl sm:text-fluid-5xl brutalist-title mb-fluid-sm sm:mb-fluid-lg">IGRA ZAVRŠENA!</h1>
+            <p className="text-fluid-sm sm:text-fluid-base brutalist-text opacity-60 mb-fluid-md sm:mb-fluid-lg">
+              Game Complete!
+            </p>
             
-            <div className="mb-fluid-xl">
-              <div className="text-fluid-4xl brutalist-subtitle mb-fluid-md">
+            {/* Results Summary */}
+            <div className="mb-fluid-lg sm:mb-fluid-xl">
+              <div className="text-fluid-2xl sm:text-fluid-4xl brutalist-subtitle mb-fluid-xs sm:mb-fluid-md">
                 Rezultat: {gameStats.correct}/7
               </div>
-              <div className="text-fluid-xl brutalist-text">
+              <div className="text-fluid-sm sm:text-fluid-base brutalist-text opacity-70 mb-fluid-sm">
+                Result: {gameStats.correct}/7
+              </div>
+              <div className="text-fluid-lg sm:text-fluid-xl brutalist-text">
                 Točnost: {Math.round((gameStats.correct / 7) * 100)}%
+              </div>
+              <div className="text-fluid-xs sm:text-fluid-sm brutalist-text opacity-60">
+                Accuracy: {Math.round((gameStats.correct / 7) * 100)}%
               </div>
             </div>
 
+            {/* Performance Badge */}
+            <div className="mb-fluid-lg sm:mb-fluid-xl">
+              {gameStats.correct >= 6 ? (
+                <div className="bg-beginner text-beginner-foreground px-fluid-md py-fluid-sm border-2 sm:border-4 border-beginner brutalist-skew-right inline-block">
+                  <div className="transform -skew-x-3 brutalist-subtitle text-fluid-sm sm:text-fluid-base">
+                    ODLIČAN RAD! • EXCELLENT WORK!
+                  </div>
+                </div>
+              ) : gameStats.correct >= 4 ? (
+                <div className="bg-intermediate text-intermediate-foreground px-fluid-md py-fluid-sm border-2 sm:border-4 border-intermediate brutalist-skew-right inline-block">
+                  <div className="transform -skew-x-3 brutalist-subtitle text-fluid-sm sm:text-fluid-base">
+                    DOBRO! • GOOD JOB!
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-advanced text-advanced-foreground px-fluid-md py-fluid-sm border-2 sm:border-4 border-advanced brutalist-skew-right inline-block">
+                  <div className="transform -skew-x-3 brutalist-subtitle text-fluid-sm sm:text-fluid-base">
+                    NASTAVI VJEŽBATI! • KEEP PRACTICING!
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Mistakes Review */}
             {gameStats.mistakes.length > 0 && (
-              <div className="mb-fluid-xl">
-                <h3 className="text-fluid-2xl brutalist-subtitle mb-fluid-md">Greške za pregled:</h3>
-                <div className="space-y-fluid-sm">
+              <div className="mb-fluid-lg sm:mb-fluid-xl">
+                <h3 className="text-fluid-lg sm:text-fluid-2xl brutalist-subtitle mb-fluid-xs sm:mb-fluid-md">Greške za pregled:</h3>
+                <p className="text-fluid-xs sm:text-fluid-sm brutalist-text opacity-60 mb-fluid-sm sm:mb-fluid-md">
+                  Mistakes to Review:
+                </p>
+                <div className="space-y-fluid-xs sm:space-y-fluid-sm max-h-64 sm:max-h-80 overflow-y-auto">
                   {gameStats.mistakes.map((mistake, index) => (
-                    <div key={index} className="bg-brutalist-black text-brutalist-white p-fluid-md brutalist-skew-right">
-                      <div className="transform -skew-x-3">
-                        <strong>{mistake.questions}</strong> → Odabrano: <em>{mistake.selected}</em>
-                        <br />
-                        Točno: <strong>{mistake.correct}</strong>
+                    <div key={index} className="bg-advanced text-advanced-foreground p-fluid-sm sm:p-fluid-md border-2 sm:border-4 border-advanced brutalist-skew-right">
+                      <div className="transform -skew-x-3 text-left">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-1">
+                          <div className="text-fluid-sm sm:text-fluid-base brutalist-subtitle">{mistake.questions}</div>
+                          <div className="text-fluid-xs sm:text-fluid-sm opacity-70">→</div>
+                        </div>
+                        <div className="text-fluid-xs sm:text-fluid-sm space-y-0.5">
+                          <div>Odabrano: <span className="brutalist-subtitle">{mistake.selected}</span></div>
+                          <div>Točno: <span className="brutalist-subtitle text-beginner">{mistake.correct}</span></div>
+                        </div>
+                        <div className="text-[10px] sm:text-fluid-xs opacity-50 mt-1">
+                          Selected: {mistake.selected} • Correct: {mistake.correct}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -254,25 +299,32 @@ const QuestionToCaseGame = () => {
               </div>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-fluid-md justify-center">
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-fluid-sm sm:gap-fluid-md justify-center">
               <motion.button
                 onClick={resetGame}
-                className="bg-brutalist-black text-brutalist-white px-fluid-lg py-fluid-md border-4 border-brutalist-black hover:bg-beginner hover:text-beginner-foreground transition-colors flex items-center justify-center gap-fluid-sm brutalist-subtitle touch-target"
+                className="bg-brutalist-black text-brutalist-white px-fluid-md sm:px-fluid-lg py-fluid-sm sm:py-fluid-md border-2 sm:border-4 border-brutalist-black hover:bg-beginner hover:text-beginner-foreground transition-colors flex items-center justify-center gap-fluid-xs sm:gap-fluid-sm brutalist-subtitle touch-target text-fluid-sm sm:text-fluid-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <RotateCcw className="w-5 h-5" />
-                IGRAJ PONOVNO
+                <RotateCcw className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>
+                  <span className="block sm:inline">IGRAJ PONOVNO</span>
+                  <span className="text-[10px] sm:text-fluid-xs opacity-60 block sm:hidden">Play Again</span>
+                </span>
               </motion.button>
               
               <Link to="/">
                 <motion.button
-                  className="bg-brutalist-gray text-brutalist-white px-fluid-lg py-fluid-md border-4 border-brutalist-gray hover:bg-brutalist-white hover:text-brutalist-black transition-colors flex items-center justify-center gap-fluid-sm brutalist-subtitle touch-target"
+                  className="bg-brutalist-gray text-brutalist-white px-fluid-md sm:px-fluid-lg py-fluid-sm sm:py-fluid-md border-2 sm:border-4 border-brutalist-gray hover:bg-brutalist-white hover:text-brutalist-black transition-colors flex items-center justify-center gap-fluid-xs sm:gap-fluid-sm brutalist-subtitle touch-target text-fluid-sm sm:text-fluid-base w-full sm:w-auto"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <ArrowLeft className="w-5 h-5" />
-                  POVRATAK
+                  <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span>
+                    <span className="block sm:inline">POVRATAK</span>
+                    <span className="text-[10px] sm:text-fluid-xs opacity-60 block sm:hidden">Return</span>
+                  </span>
                 </motion.button>
               </Link>
             </div>
