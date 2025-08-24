@@ -284,34 +284,29 @@ const QuestionToCaseGame = () => {
   return (
     <div className="min-h-screen bg-brutalist-black text-brutalist-white">
       {/* Header */}
-      <header className="bg-brutalist-white text-brutalist-black border-b-4 sm:border-b-8 border-brutalist-black">
-        <div className="container-responsive py-fluid-sm sm:py-fluid-md">
-          {/* Mobile Layout - Stacked */}
-          <div className="flex flex-col gap-fluid-sm sm:hidden">
-            <div className="flex items-center justify-between">
-              <Link to="/">
-                <motion.button
-                  className="bg-brutalist-black text-brutalist-white px-fluid-sm py-fluid-xs border-2 border-brutalist-black hover:bg-brutalist-gray transition-colors flex items-center gap-fluid-xs brutalist-subtitle text-sm touch-target"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ArrowLeft className="w-3 h-3" />
-                  POVRATAK
-                </motion.button>
-              </Link>
-              
-              <div className="bg-brutalist-black text-brutalist-white px-fluid-sm py-fluid-xs border-2 border-brutalist-black brutalist-subtitle text-sm">
-                {score}/7
-              </div>
+      <header className="bg-brutalist-white text-brutalist-black border-b-2 sm:border-b-8 border-brutalist-black">
+        <div className="container-responsive py-fluid-xs sm:py-fluid-md">
+          {/* Mobile Layout - Compact Single Row */}
+          <div className="flex items-center justify-between sm:hidden">
+            <Link to="/">
+              <motion.button
+                className="bg-brutalist-black text-brutalist-white px-fluid-xs py-1 border-2 border-brutalist-black hover:bg-brutalist-gray transition-colors flex items-center gap-1 text-xs touch-target"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ArrowLeft className="w-3 h-3" />
+              </motion.button>
+            </Link>
+            
+            <div className="bg-brutalist-black text-brutalist-white px-fluid-sm py-1 border-2 border-brutalist-black text-sm font-bold">
+              {score}/7
             </div>
             
-            <div className="flex justify-center">
-              <div className={`px-fluid-md py-fluid-sm border-4 flex items-center gap-fluid-xs brutalist-subtitle ${
-                timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
-              }`}>
-                <Clock className="w-4 h-4" />
-                {timeLeft}s
-              </div>
+            <div className={`px-fluid-sm py-1 border-2 flex items-center gap-1 text-sm font-bold ${
+              timeLeft <= 10 ? 'bg-advanced text-advanced-foreground border-advanced animate-pulse' : 'bg-intermediate text-intermediate-foreground border-intermediate'
+            }`}>
+              <Clock className="w-3 h-3" />
+              {timeLeft}s
             </div>
           </div>
 
