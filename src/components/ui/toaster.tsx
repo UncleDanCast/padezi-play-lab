@@ -32,18 +32,13 @@ export function Toaster() {
               )}
               {description && (
                 <div>
-                  {/* Split description by double newline to separate Croatian and English */}
-                  {typeof description === 'string' && description.includes('\n\n') ? (
-                    description.split('\n\n').map((part, index) => (
-                      <ToastDescription 
-                        key={index} 
-                        className={index > 0 ? "text-fluid-xs opacity-50 mt-1" : ""}
-                      >
-                        {part}
-                      </ToastDescription>
-                    ))
-                  ) : (
-                    <ToastDescription>{description}</ToastDescription>
+                  <ToastDescription>{description}</ToastDescription>
+                  {/* Show English translation beneath Croatian description */}
+                  {typeof description === 'string' && (
+                    <div className="text-fluid-xs font-medium opacity-50 mt-1">
+                      {description.includes('Točan odgovor:') && `Correct answer: ${description.split(': ')[1]}`}
+                      {description.includes('pripada') && `${description.replace(/pripada (\w+)u/, 'belongs to $1')}`}
+                    </div>
                   )}
                 </div>
               )}
