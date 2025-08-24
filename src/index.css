@@ -52,6 +52,42 @@ All colors MUST be HSL. Brutalist aesthetic with bold contrasts and geometric el
     --ring: 0 0% 0%;
 
     --radius: 0.5rem;
+    
+    /* Fluid Typography - Responsive Font Scaling */
+    --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+    --font-size-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+    --font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+    --font-size-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+    --font-size-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+    --font-size-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+    --font-size-3xl: clamp(1.875rem, 1.5rem + 1.875vw, 2.5rem);
+    --font-size-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 3.5rem);
+    --font-size-5xl: clamp(3rem, 2rem + 5vw, 6rem);
+    --font-size-6xl: clamp(3.75rem, 2.5rem + 6.25vw, 8rem);
+    --font-size-7xl: clamp(4.5rem, 3rem + 7.5vw, 10rem);
+    --font-size-8xl: clamp(6rem, 4rem + 10vw, 14rem);
+    
+    /* Responsive Spacing */
+    --space-xs: clamp(0.25rem, 0.2rem + 0.25vw, 0.375rem);
+    --space-sm: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
+    --space-md: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+    --space-lg: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+    --space-xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+    --space-2xl: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+    --space-3xl: clamp(3rem, 2.5rem + 2.5vw, 5rem);
+    
+    /* Container Sizes */
+    --container-xs: 20rem;
+    --container-sm: 24rem;
+    --container-md: 28rem;
+    --container-lg: 32rem;
+    --container-xl: 36rem;
+    --container-2xl: 42rem;
+    --container-3xl: 48rem;
+    --container-4xl: 56rem;
+    --container-5xl: 64rem;
+    --container-6xl: 72rem;
+    --container-7xl: 80rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -115,23 +151,109 @@ All colors MUST be HSL. Brutalist aesthetic with bold contrasts and geometric el
   body {
     @apply bg-background text-foreground font-bold;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /* Smooth scrolling and prevent overflow issues */
+    overflow-x: hidden;
+    scroll-behavior: smooth;
   }
+  
+  /* Responsive Container System */
+  .container-responsive {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1rem, 4vw, 2rem);
+    padding-right: clamp(1rem, 4vw, 2rem);
+  }
+  
+  @media (min-width: 640px) {
+    .container-responsive {
+      max-width: 640px;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .container-responsive {
+      max-width: 768px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container-responsive {
+      max-width: 1024px;
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .container-responsive {
+      max-width: 1280px;
+    }
+  }
+  
+  @media (min-width: 1536px) {
+    .container-responsive {
+      max-width: 1536px;
+    }
+  }
+  
+  /* Fluid Typography Classes */
+  .text-fluid-xs { font-size: var(--font-size-xs); }
+  .text-fluid-sm { font-size: var(--font-size-sm); }
+  .text-fluid-base { font-size: var(--font-size-base); }
+  .text-fluid-lg { font-size: var(--font-size-lg); }
+  .text-fluid-xl { font-size: var(--font-size-xl); }
+  .text-fluid-2xl { font-size: var(--font-size-2xl); }
+  .text-fluid-3xl { font-size: var(--font-size-3xl); }
+  .text-fluid-4xl { font-size: var(--font-size-4xl); }
+  .text-fluid-5xl { font-size: var(--font-size-5xl); }
+  .text-fluid-6xl { font-size: var(--font-size-6xl); }
+  .text-fluid-7xl { font-size: var(--font-size-7xl); }
+  .text-fluid-8xl { font-size: var(--font-size-8xl); }
+  
+  /* Responsive Spacing Classes */
+  .space-fluid-xs { margin: var(--space-xs); }
+  .space-fluid-sm { margin: var(--space-sm); }
+  .space-fluid-md { margin: var(--space-md); }
+  .space-fluid-lg { margin: var(--space-lg); }
+  .space-fluid-xl { margin: var(--space-xl); }
+  .space-fluid-2xl { margin: var(--space-2xl); }
+  .space-fluid-3xl { margin: var(--space-3xl); }
   
   /* Brutalist Typography */
   .brutalist-title {
     @apply font-black uppercase tracking-tighter leading-none;
     transform: skewX(-6deg);
+    font-size: var(--font-size-8xl);
   }
   
   .brutalist-subtitle {
     @apply font-black uppercase tracking-wider;
+    font-size: var(--font-size-3xl);
+  }
+  
+  .brutalist-section-title {
+    @apply font-black uppercase tracking-tighter leading-none;
+    font-size: var(--font-size-7xl);
   }
   
   .brutalist-text {
     @apply font-bold tracking-wide;
+    font-size: var(--font-size-base);
+    line-height: 1.5;
   }
   
-  /* Brutalist Geometric Elements */
+  .brutalist-text-large {
+    @apply font-bold tracking-wide;
+    font-size: var(--font-size-lg);
+    line-height: 1.4;
+  }
+  
+  /* Mobile-Optimized Touch Targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Brutalist Geometric Elements - Responsive */
   .brutalist-skew-left {
     transform: skewX(-12deg);
   }
@@ -148,6 +270,25 @@ All colors MUST be HSL. Brutalist aesthetic with bold contrasts and geometric el
     transform: rotate(6deg);
   }
   
+  /* Mobile adjustments */
+  @media (max-width: 480px) {
+    .brutalist-skew-left {
+      transform: skewX(-6deg);
+    }
+    
+    .brutalist-skew-right {
+      transform: skewX(6deg);
+    }
+    
+    .brutalist-rotate-left {
+      transform: rotate(-3deg);
+    }
+    
+    .brutalist-rotate-right {
+      transform: rotate(3deg);
+    }
+  }
+  
   /* Brutalist Animations */
   .brutalist-hover {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -155,5 +296,20 @@ All colors MUST be HSL. Brutalist aesthetic with bold contrasts and geometric el
   
   .brutalist-hover:hover {
     transform: scale(1.02) rotate(1deg);
+  }
+  
+  /* Mobile hover adjustments */
+  @media (max-width: 768px) {
+    .brutalist-hover:hover {
+      transform: scale(1.01) rotate(0.5deg);
+    }
+  }
+  
+  /* Ensure proper spacing on mobile */
+  @media (max-width: 640px) {
+    .mobile-padding {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   }
 }

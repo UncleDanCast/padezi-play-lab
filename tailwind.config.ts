@@ -12,9 +12,22 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: {
+				DEFAULT: '1rem',
+				sm: '1.5rem',
+				md: '2rem',
+				lg: '2.5rem',
+				xl: '3rem',
+				'2xl': '4rem'
+			},
 			screens: {
-				'2xl': '1400px'
+				'xs': '475px',
+				'sm': '640px',
+				'md': '768px',
+				'lg': '1024px',
+				'xl': '1280px',
+				'2xl': '1536px',
+				'3xl': '1920px'
 			}
 		},
 		extend: {
@@ -84,6 +97,33 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			
+			/* Responsive Font Sizes */
+			fontSize: {
+				'fluid-xs': 'var(--font-size-xs)',
+				'fluid-sm': 'var(--font-size-sm)',
+				'fluid-base': 'var(--font-size-base)',
+				'fluid-lg': 'var(--font-size-lg)',
+				'fluid-xl': 'var(--font-size-xl)',
+				'fluid-2xl': 'var(--font-size-2xl)',
+				'fluid-3xl': 'var(--font-size-3xl)',
+				'fluid-4xl': 'var(--font-size-4xl)',
+				'fluid-5xl': 'var(--font-size-5xl)',
+				'fluid-6xl': 'var(--font-size-6xl)',
+				'fluid-7xl': 'var(--font-size-7xl)',
+				'fluid-8xl': 'var(--font-size-8xl)',
+			},
+			
+			/* Responsive Spacing */
+			spacing: {
+				'fluid-xs': 'var(--space-xs)',
+				'fluid-sm': 'var(--space-sm)',
+				'fluid-md': 'var(--space-md)',
+				'fluid-lg': 'var(--space-lg)',
+				'fluid-xl': 'var(--space-xl)',
+				'fluid-2xl': 'var(--space-2xl)',
+				'fluid-3xl': 'var(--space-3xl)',
 			},
 			keyframes: {
 				'accordion-down': {
