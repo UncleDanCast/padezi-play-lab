@@ -49,6 +49,20 @@ const CaseMatchGame = () => {
   });
   const [userHasInteracted, setUserHasInteracted] = useState(false);
 
+  // Get English case name for hints
+  const getCaseEnglishName = (caseName: string) => {
+    const caseTranslations: { [key: string]: string } = {
+      'Nominativ': 'Nominative',
+      'Genitiv': 'Genitive', 
+      'Dativ': 'Dative',
+      'Akuzativ': 'Accusative',
+      'Vokativ': 'Vocative',
+      'Lokativ': 'Locative',
+      'Instrumental': 'Instrumental'
+    };
+    return caseTranslations[caseName] || caseName;
+  };
+
   // Shuffle array function
   const shuffleArray = (array: CaseData[]) => {
     const shuffled = [...array];
@@ -434,17 +448,29 @@ const CaseMatchGame = () => {
             exit={{ opacity: 0, y: -20 }}
             className="text-center mb-8 xs:mb-10 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24 2xl:mb-28"
           >
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl brutalist-title mb-3 xs:mb-4 sm:mb-6 md:mb-8 lg:mb-10 leading-tight">
-              {cases[currentCaseIndex].case}
-            </h1>
-            <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl brutalist-text opacity-80 leading-relaxed px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
-              Koji su pitanja za ovaj padež?
-            </p>
-            {hintsMode && (
-              <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl brutalist-text opacity-60 mt-2 xs:mt-3 sm:mt-4 md:mt-6 leading-relaxed px-4 xs:px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
+            {/* Case Name Box - Similar to Case Detective's question box */}
+            <div className="bg-intermediate text-intermediate-foreground p-3 xs:p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 border-3 sm:border-4 md:border-6 lg:border-8 border-intermediate w-full max-w-sm xs:max-w-md sm:max-w-2xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl mx-auto mb-4 xs:mb-6 sm:mb-8 md:mb-10 lg:mb-12 brutalist-skew-right">
+              <div className="transform -skew-x-12">
+                <h1 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl brutalist-title mb-2 xs:mb-3 sm:mb-4 md:mb-6 break-words leading-tight">
+                  {cases[currentCaseIndex].case}
+                </h1>
+                {hintsMode && (
+                  <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold tracking-wide opacity-90 leading-snug">
+                    {getCaseEnglishName(cases[currentCaseIndex].case)}
+                  </p>
+                )}
+              </div>
+            </div>
+            
+            {/* Instructions - Responsive typography */}
+            <div className="space-y-1 xs:space-y-2">
+              <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl brutalist-text opacity-80">
+                Koji su pitanja za ovaj padež?
+              </p>
+              <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl brutalist-text opacity-50">
                 Which questions belong to this case?
               </p>
-            )}
+            </div>
           </motion.div>
         </AnimatePresence>
 
