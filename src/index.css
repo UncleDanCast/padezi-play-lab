@@ -348,10 +348,99 @@ All colors MUST be HSL. Brutalist aesthetic with bold contrasts and geometric el
     }
   }
 
-  /* Landscape orientation warning for mobile */
-  @media (max-width: 767px) and (orientation: landscape) {
+  /* Landscape orientation warning for mobile PHONES only (not tablets) */
+  @media (max-width: 767px) and (orientation: landscape) and (max-height: 480px) {
     .landscape-warning {
       display: flex !important;
+    }
+  }
+
+  /* Tablet-specific optimizations */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    /* Tablet portrait and landscape - both supported */
+    body {
+      font-size: 1.125rem;
+    }
+
+    /* Better use of tablet screen space */
+    .container-responsive {
+      max-width: 90%;
+    }
+
+    /* Larger touch targets for tablet */
+    .touch-target {
+      min-height: 48px;
+      min-width: 48px;
+    }
+
+    button,
+    a,
+    [role="button"] {
+      min-height: 48px;
+      padding: 0.875rem 1.5rem;
+    }
+
+    /* Optimize text sizes for tablets */
+    .text-fluid-base {
+      font-size: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+    }
+
+    .text-fluid-lg {
+      font-size: clamp(1.25rem, 1.125rem + 0.625vw, 1.5rem);
+    }
+
+    .text-fluid-xl {
+      font-size: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);
+    }
+  }
+
+  /* Large tablets and iPad Pro landscape */
+  @media (min-width: 1024px) {
+    /* Full desktop experience */
+    .landscape-warning {
+      display: none !important;
+    }
+
+    /* Optimal content width for large screens */
+    .container-responsive {
+      max-width: 1200px;
+    }
+
+    /* Desktop-size touch targets */
+    button,
+    a,
+    [role="button"] {
+      min-height: 44px;
+    }
+  }
+
+  /* iPad-specific optimizations using hover capability detection */
+  @media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+    /* Desktop/tablet with mouse - enable hover effects */
+    .brutalist-hover:hover {
+      transform: scale(1.05) rotate(1deg);
+    }
+
+    button:hover,
+    a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+    }
+  }
+
+  /* Android tablet optimizations */
+  @media (min-width: 600px) and (max-width: 1280px) and (orientation: landscape) {
+    /* Android tablets in landscape - common sizes: 600dp to 1280dp */
+    .container-responsive {
+      padding-left: clamp(2rem, 5vw, 4rem);
+      padding-right: clamp(2rem, 5vw, 4rem);
+    }
+
+    /* Two-column layout for games on tablet landscape */
+    .game-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
     }
   }
 
