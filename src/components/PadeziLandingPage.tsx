@@ -1,9 +1,8 @@
-"use client";
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Play, BookOpen, Calculator, Target, Brain, Puzzle, Gamepad2, MessageCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { InstallPrompt } from './InstallPrompt';
 
 interface GameData {
   id: string;
@@ -237,6 +236,9 @@ export const PadeziLandingPage = () => {
           </div>
         </div>
       </footer>
+
+      {/* Install Prompt for PWA */}
+      <InstallPrompt />
     </div>
   );
 };
