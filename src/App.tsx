@@ -12,6 +12,7 @@ import Index from "./pages/Index";
 // Lazy load game components for code splitting
 const CaseMatchGame = lazy(() => import("./pages/CaseMatchGame"));
 const QuestionToCaseGame = lazy(() => import("./pages/QuestionToCaseGame"));
+const LogicGridGame = lazy(() => import("./pages/LogicGridGame"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/case-match" element={<CaseMatchGame />} />
               <Route path="/question-to-case" element={<QuestionToCaseGame />} />
+              <Route path="/logic-grid" element={<LogicGridGame />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

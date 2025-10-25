@@ -191,7 +191,7 @@ export const PadeziLandingPage = () => {
                       </main>
 
                     <footer>
-                      <Link to={game.id === 'case-match' ? '/case-match' : game.id === 'question-to-case' ? '/question-to-case' : '#'}>
+                      <Link to={game.id === 'case-match' ? '/case-match' : game.id === 'question-to-case' ? '/question-to-case' : game.id === 'logic-grid' ? '/logic-grid' : '#'}>
                         <motion.button
                           className="w-full bg-brutalist-black text-brutalist-white brutalist-subtitle py-3 xs:py-4 sm:py-5 md:py-6 px-4 xs:px-5 sm:px-6 md:px-7 border-2 xs:border-3 sm:border-4 md:border-5 border-brutalist-black hover:bg-brutalist-white hover:text-brutalist-black hover:border-brutalist-black transition-all duration-200 flex items-center justify-center gap-2 xs:gap-3 sm:gap-4 text-sm xs:text-base sm:text-lg md:text-xl brutalist-skew-right group touch-target min-h-[44px] xs:min-h-[48px] sm:min-h-[52px] md:min-h-[56px]"
                           whileHover={{
