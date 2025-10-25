@@ -354,4 +354,51 @@ All colors MUST be HSL. Brutalist aesthetic with bold contrasts and geometric el
       display: flex !important;
     }
   }
+
+  /* ProMotion 120Hz Optimization for iOS devices */
+  @media (min-resolution: 2dppx) and (prefers-reduced-motion: no-preference) {
+    * {
+      animation-timing-function: linear;
+    }
+
+    .touch-feedback,
+    .brutalist-hover,
+    button,
+    a {
+      transition-duration: 0.15s;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Smooth 120fps scrolling on iOS */
+    html {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
+  /* Safari 18 View Transitions API support */
+  @supports (view-transition-name: auto) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 0.3s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
+  /* Dynamic Island safe area (iPhone 14 Pro+, 15 Pro+, 16 Pro+) */
+  @supports (padding: max(0px)) {
+    .header-with-island {
+      padding-top: max(env(safe-area-inset-top), 59px);
+    }
+  }
+
+  /* iOS Action Button haptic optimization */
+  @media (hover: none) and (pointer: coarse) {
+    button:active,
+    a:active,
+    [role="button"]:active {
+      transform: scale(0.97);
+      transition: transform 0.05s ease-out;
+    }
+  }
 }
