@@ -3,12 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, RotateCcw, Trophy, Clock, Lightbulb } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-
-interface CaseData {
-  case: string;
-  questions: string;
-  description: string;
-}
+import { cases, type CaseData } from '@/data/cases';
 
 interface GameStats {
   correct: number;
@@ -18,16 +13,6 @@ interface GameStats {
 
 const QuestionToCaseGame = () => {
   const { toast } = useToast();
-  
-  const cases: CaseData[] = [
-    { case: 'Nominativ', questions: 'Tko? Što?', description: 'Who? What?' },
-    { case: 'Genitiv', questions: '(od) koga? (od) čega?', description: 'From whom? From what?' },
-    { case: 'Dativ', questions: 'Komu? Čemu?', description: 'To whom? To what?' },
-    { case: 'Akuzativ', questions: 'Koga? Što?', description: 'Whom? What?' },
-    { case: 'Vokativ', questions: '(obraćanje)', description: 'Direct address' },
-    { case: 'Lokativ', questions: '(o) komu? (o) čemu?', description: 'About whom? About what?' },
-    { case: 'Instrumental', questions: '(s) kim(e)? (s) čim(e)?', description: 'With whom? With what?' }
-  ];
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -87,31 +72,26 @@ const QuestionToCaseGame = () => {
   useEffect(() => {
     if (showDemonstration) {
       const demonstrateHints = async () => {
-        console.log('Starting hints demonstration...');
-        
         // Wait 2 seconds before starting demonstration
         await new Promise(resolve => setTimeout(resolve, 2000));
-        
+
         // Toggle 3 times with 1.2 second intervals
         for (let i = 0; i < 3; i++) {
-          console.log(`Demonstration toggle ${i + 1}`);
           setHintsMode(prev => !prev);
           await new Promise(resolve => setTimeout(resolve, 1200));
         }
-        
+
         // End with hints off
-        console.log('Ending demonstration with hints off');
         setHintsMode(false);
-        
+
         // Wait a bit more before completing
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
         // Mark demonstration as completed
         localStorage.setItem('questionToCaseHintsDemonstrated', 'true');
         setShowDemonstration(false);
-        console.log('Demonstration completed');
       };
-      
+
       demonstrateHints();
     }
   }, [showDemonstration]);
@@ -119,13 +99,6 @@ const QuestionToCaseGame = () => {
   const toggleHints = () => {
     setUserHasInteracted(true);
     setHintsMode(!hintsMode);
-  };
-
-  // Reset demonstration for testing (you can remove this later)
-  const resetDemonstration = () => {
-    localStorage.removeItem('questionToCaseHintsDemonstrated');
-    setShowDemonstration(true);
-    setUserHasInteracted(false);
   };
 
   // Timer logic
@@ -521,8 +494,8 @@ const QuestionToCaseGame = () => {
         <motion.button
           onClick={toggleHints}
           className={`fixed bottom-3 xs:bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 right-3 xs:right-4 sm:right-6 md:right-8 lg:right-10 w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 xl:w-24 xl:h-24 rounded-full border-3 sm:border-4 md:border-5 lg:border-6 shadow-2xl z-50 flex flex-col items-center justify-center transition-all duration-300 ${
-            hintsMode 
-              ? 'bg-beginner text-beginner-foreground border-beginner hover:bg-beginner/90' 
+            hintsMode
+              ? 'bg-beginner text-beginner-foreground border-beginner hover:bg-beginner/90'
               : 'bg-brutalist-white text-brutalist-black border-brutalist-black hover:bg-brutalist-yellow'
           } ${showDemonstration ? 'animate-pulse' : ''}`}
           whileHover={{ scale: 1.1 }}
@@ -535,15 +508,6 @@ const QuestionToCaseGame = () => {
             <div>{hintsMode ? 'SAKRIJ' : 'SAVJETI'}</div>
             <div className="opacity-60">{hintsMode ? 'HIDE' : 'HINTS'}</div>
           </div>
-        </motion.button>
-
-        {/* Temporary Reset Button - Multi-resolution responsive */}
-        <motion.button
-          onClick={resetDemonstration}
-          className="fixed bottom-3 xs:bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-3 xs:left-4 sm:left-6 md:left-8 lg:left-10 w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full border-2 sm:border-3 md:border-4 bg-brutalist-gray text-brutalist-white z-50 flex items-center justify-center text-[6px] xs:text-[8px] sm:text-xs md:text-sm lg:text-base font-bold hover:bg-brutalist-black transition-colors"
-          title="Reset demonstration (for testing)"
-        >
-          RESET
         </motion.button>
       </main>
     </div>
