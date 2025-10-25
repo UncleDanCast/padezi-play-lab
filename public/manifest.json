@@ -1,24 +1,74 @@
 {
   "name": "Padeži - Croatian Grammar Master",
   "short_name": "Padeži",
-  "description": "Master Croatian grammatical cases through interactive games",
+  "description": "Master Croatian grammatical cases through interactive games. Learn Croatian declensions on any device - phone, tablet, or desktop.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "background_color": "#000000",
   "theme_color": "#000000",
-  "orientation": "portrait",
-  "categories": ["education", "games"],
+  "orientation": "any",
+  "categories": ["education", "games", "productivity"],
+  "lang": "en-US",
+  "dir": "ltr",
+  "prefer_related_applications": false,
   "icons": [
     {
-      "src": "/placeholder.svg",
+      "src": "/android-icon-192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "/placeholder.svg",
+      "src": "/android-icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/android-icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/phone.png",
+      "sizes": "1170x2532",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Padeži on mobile - Learn Croatian cases"
+    },
+    {
+      "src": "/screenshots/tablet.png",
+      "sizes": "2360x1640",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Padeži on tablet - Enhanced learning experience"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Case Match Game",
+      "short_name": "Match Game",
+      "description": "Match Croatian cases with their questions",
+      "url": "/case-match",
+      "icons": [{ "src": "/android-icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Question to Case",
+      "short_name": "Question Game",
+      "description": "Identify cases from questions",
+      "url": "/question-to-case",
+      "icons": [{ "src": "/android-icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

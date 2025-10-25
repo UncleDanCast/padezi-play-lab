@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG to PNG Converter - Padeži iOS Assets</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000;
+      color: #fff;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #EAB308;
+      margin-bottom: 1rem;
+      letter-spacing: -2px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2rem 0 1rem;
+      color: #EAB308;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 3rem;
+      color: #888;
+    }
+
+    .drop-zone {
+      border: 4px dashed #EAB308;
+      background: #111;
+      padding: 4rem 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 2rem;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.dragover {
+      background: #1a1a1a;
+      border-color: #fff;
+      transform: scale(1.02);
+    }
+
+    .drop-zone p {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .drop-zone small {
+      color: #888;
+      display: block;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .btn {
+      background: #EAB308;
+      color: #000;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin: 0.5rem;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #fff;
+      transform: scale(1.05);
+    }
+
+    .btn:disabled {
+      background: #333;
+      color: #666;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .file-list {
+      margin: 2rem 0;
+    }
+
+    .file-item {
+      background: #111;
+      border: 2px solid #333;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .file-item.converted {
+      border-color: #EAB308;
+      background: #1a1a0a;
+    }
+
+    .file-name {
+      font-weight: 600;
+    }
+
+    .file-status {
+      color: #EAB308;
+      font-size: 0.875rem;
+    }
+
+    .progress {
+      margin: 2rem 0;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #EAB308;
+    }
+
+    .instructions {
+      background: #111;
+      border: 2px solid #333;
+      padding: 2rem;
+      margin: 3rem 0;
+    }
+
+    .instructions ol {
+      margin-left: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .instructions li {
+      margin: 0.5rem 0;
+    }
+
+    .warning {
+      background: #1a0a00;
+      border: 2px solid #EAB308;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-size: 0.875rem;
+    }
+
+    canvas {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>PADEŽI</h1>
+    <p class="subtitle">SVG to PNG Converter - iOS Assets</p>
+
+    <div class="drop-zone" id="dropZone">
+      <p>📁 DROP SVG FILES HERE</p>
+      <small>or click to browse</small>
+      <input type="file" id="fileInput" accept=".svg" multiple>
+    </div>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <button class="btn" id="selectBtn">SELECT FILES</button>
+      <button class="btn" id="convertBtn" disabled>CONVERT ALL TO PNG</button>
+      <button class="btn" id="downloadBtn" disabled>DOWNLOAD ALL</button>
+    </div>
+
+    <div id="progress" class="progress" style="display: none;"></div>
+
+    <div id="fileList" class="file-list"></div>
+
+    <div class="instructions">
+      <h2>Instructions</h2>
+      <ol>
+        <li><strong>Select SVG files</strong> from <code>public/</code> and <code>public/splash/</code> directories</li>
+        <li><strong>Click "CONVERT ALL TO PNG"</strong> to convert them</li>
+        <li><strong>Click "DOWNLOAD ALL"</strong> to download as a ZIP file</li>
+        <li><strong>Extract the ZIP</strong> and place PNG files in their respective directories</li>
+        <li><strong>Build and test</strong>: <code>npm run build && npm run preview</code></li>
+      </ol>
+
+      <div class="warning">
+        ⚠️ <strong>Important:</strong> Make sure to maintain the same file structure:
+        Apple Touch Icons go in <code>public/</code> and splash screens go in <code>public/splash/</code>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <h2>Expected Files</h2>
+      <p><strong>Apple Touch Icons (5 files):</strong></p>
+      <ul style="margin: 0.5rem 0 1rem 1.5rem;">
+        <li>apple-touch-icon.svg (180x180)</li>
+        <li>apple-touch-icon-180x180.svg (180x180)</li>
+        <li>apple-touch-icon-167x167.svg (167x167)</li>
+        <li>apple-touch-icon-152x152.svg (152x152)</li>
+        <li>apple-touch-icon-120x120.svg (120x120)</li>
+      </ul>
+      <p><strong>Splash Screens (7 files):</strong></p>
+      <ul style="margin: 0.5rem 0 1rem 1.5rem;">
+        <li>iphone-16-pro-max.svg (1290x2796)</li>
+        <li>iphone-16-pro.svg (1179x2556)</li>
+        <li>iphone-16-plus.svg (1284x2778)</li>
+        <li>iphone-16.svg (1170x2532)</li>
+        <li>ipad-pro-13.svg (2064x2752)</li>
+        <li>ipad-pro-11.svg (1668x2388)</li>
+        <li>ipad-air.svg (1640x2360)</li>
+      </ul>
+    </div>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const selectBtn = document.getElementById('selectBtn');
+    const convertBtn = document.getElementById('convertBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const fileList = document.getElementById('fileList');
+    const progress = document.getElementById('progress');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let files = [];
+    let convertedFiles = [];
+
+    // Drag and drop handlers
+    dropZone.addEventListener('click', () => fileInput.click());
+    selectBtn.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      handleFiles(e.target.files);
+    });
+
+    function handleFiles(fileList) {
+      files = Array.from(fileList).filter(f => f.name.endsWith('.svg'));
+
+      if (files.length === 0) {
+        alert('Please select SVG files');
+        return;
+      }
+
+      displayFiles();
+      convertBtn.disabled = false;
+      downloadBtn.disabled = true;
+      convertedFiles = [];
+    }
+
+    function displayFiles() {
+      fileList.innerHTML = '<h2>Selected Files (' + files.length + ')</h2>';
+      files.forEach((file, index) => {
+        const div = document.createElement('div');
+        div.className = 'file-item';
+        div.id = 'file-' + index;
+        div.innerHTML = `
+          <span class="file-name">${file.name}</span>
+          <span class="file-status" id="status-${index}">Ready</span>
+        `;
+        fileList.appendChild(div);
+      });
+    }
+
+    convertBtn.addEventListener('click', async () => {
+      convertBtn.disabled = true;
+      progress.style.display = 'block';
+      convertedFiles = [];
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        progress.textContent = `Converting ${i + 1} of ${files.length}...`;
+        document.getElementById('status-' + i).textContent = 'Converting...';
+
+        try {
+          const pngBlob = await convertSVGtoPNG(file);
+          convertedFiles.push({
+            name: file.name.replace('.svg', '.png'),
+            blob: pngBlob
+          });
+
+          document.getElementById('file-' + i).classList.add('converted');
+          document.getElementById('status-' + i).textContent = '✓ Converted';
+        } catch (err) {
+          document.getElementById('status-' + i).textContent = '✗ Error';
+          console.error('Conversion error:', err);
+        }
+      }
+
+      progress.textContent = '✓ All files converted!';
+      downloadBtn.disabled = false;
+    });
+
+    async function convertSVGtoPNG(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          const svgText = e.target.result;
+          const parser = new DOMParser();
+          const svgDoc = parser.parseFromString(svgText, 'image/svg+xml');
+          const svgElement = svgDoc.documentElement;
+
+          const width = parseInt(svgElement.getAttribute('width'));
+          const height = parseInt(svgElement.getAttribute('height'));
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const img = new Image();
+          const svgBlob = new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' });
+          const url = URL.createObjectURL(svgBlob);
+
+          img.onload = () => {
+            ctx.clearRect(0, 0, width, height);
+            ctx.drawImage(img, 0, 0, width, height);
+
+            canvas.toBlob((blob) => {
+              URL.revokeObjectURL(url);
+              resolve(blob);
+            }, 'image/png');
+          };
+
+          img.onerror = reject;
+          img.src = url;
+        };
+
+        reader.onerror = reject;
+        reader.readAsText(file);
+      });
+    }
+
+    downloadBtn.addEventListener('click', async () => {
+      downloadBtn.disabled = true;
+      progress.textContent = 'Creating ZIP file...';
+
+      const zip = new JSZip();
+
+      convertedFiles.forEach(file => {
+        // Organize by directory
+        if (file.name.includes('iphone') || file.name.includes('ipad')) {
+          zip.file('splash/' + file.name, file.blob);
+        } else {
+          zip.file(file.name, file.blob);
+        }
+      });
+
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const url = URL.createObjectURL(zipBlob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'padezi-ios-assets.zip';
+      a.click();
+
+      URL.revokeObjectURL(url);
+      progress.textContent = '✓ Downloaded!';
+      downloadBtn.disabled = false;
+    });
+  </script>
+</body>
+</html>
