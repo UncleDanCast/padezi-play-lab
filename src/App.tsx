@@ -5,6 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { BrowserSupport } from "@/components/BrowserSupport";
+import { LoadingProgress } from "@/components/LoadingProgress";
 import Index from "./pages/Index";
 
 // Lazy load game components for code splitting
@@ -12,26 +14,17 @@ const CaseMatchGame = lazy(() => import("./pages/CaseMatchGame"));
 const QuestionToCaseGame = lazy(() => import("./pages/QuestionToCaseGame"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Loading component
-const LoadingScreen = () => (
-  <div className="min-h-screen bg-brutalist-black text-brutalist-white flex items-center justify-center">
-    <div className="text-center">
-      <div className="text-4xl brutalist-title mb-4">UČITAVANJE...</div>
-      <div className="text-lg opacity-60">Loading...</div>
-    </div>
-  </div>
-);
-
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <BrowserSupport />
       <ErrorBoundary>
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Suspense fallback={<LoadingScreen />}>
+          <Suspense fallback={<LoadingProgress />}>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/case-match" element={<CaseMatchGame />} />
