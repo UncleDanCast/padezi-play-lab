@@ -154,6 +154,11 @@ All colors MUST be HSL. Brutalist aesthetic with bold contrasts and geometric el
     /* Smooth scrolling and prevent overflow issues */
     overflow-x: hidden;
     scroll-behavior: smooth;
+    /* Safe area support for iPhone notches and Android punch holes */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
   
   /* Responsive Container System */
@@ -310,6 +315,43 @@ All colors MUST be HSL. Brutalist aesthetic with bold contrasts and geometric el
     .mobile-padding {
       padding-left: 1rem;
       padding-right: 1rem;
+    }
+  }
+
+  /* Fixed elements need safe area handling */
+  .fixed-button {
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .fixed-button-left {
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    left: max(1rem, env(safe-area-inset-left));
+  }
+
+  /* Disable animations on mobile for performance */
+  @media (max-width: 1023px) {
+    .touch-feedback {
+      transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+    }
+
+    .touch-feedback:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+
+    /* Disable Framer Motion animations on mobile */
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Landscape orientation warning for mobile */
+  @media (max-width: 767px) and (orientation: landscape) {
+    .landscape-warning {
+      display: flex !important;
     }
   }
 }
