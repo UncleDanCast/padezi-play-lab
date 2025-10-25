@@ -3,12 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, RotateCcw, Trophy, Clock, Lightbulb } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
-
-interface CaseData {
-  case: string;
-  questions: string;
-  description: string;
-}
+import { cases, getCaseEnglishName, type CaseData } from '@/data/cases';
 
 interface GameStats {
   correct: number;
@@ -18,16 +13,6 @@ interface GameStats {
 
 const CaseMatchGame = () => {
   const { toast } = useToast();
-  
-  const cases: CaseData[] = [
-    { case: 'Nominativ', questions: 'Tko? Što?', description: 'Who? What?' },
-    { case: 'Genitiv', questions: '(od) koga? (od) čega?', description: 'From whom? From what?' },
-    { case: 'Dativ', questions: 'Komu? Čemu?', description: 'To whom? To what?' },
-    { case: 'Akuzativ', questions: 'Koga? Što?', description: 'Whom? What?' },
-    { case: 'Vokativ', questions: '(obraćanje)', description: 'Direct address' },
-    { case: 'Lokativ', questions: '(o) komu? (o) čemu?', description: 'About whom? About what?' },
-    { case: 'Instrumental', questions: '(s) kim(e)? (s) čim(e)?', description: 'With whom? With what?' }
-  ];
 
   const [currentCaseIndex, setCurrentCaseIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -48,20 +33,6 @@ const CaseMatchGame = () => {
     return demonstrated !== 'true';
   });
   const [userHasInteracted, setUserHasInteracted] = useState(false);
-
-  // Get English case name for hints
-  const getCaseEnglishName = (caseName: string) => {
-    const caseTranslations: { [key: string]: string } = {
-      'Nominativ': 'Nominative',
-      'Genitiv': 'Genitive', 
-      'Dativ': 'Dative',
-      'Akuzativ': 'Accusative',
-      'Vokativ': 'Vocative',
-      'Lokativ': 'Locative',
-      'Instrumental': 'Instrumental'
-    };
-    return caseTranslations[caseName] || caseName;
-  };
 
   // Shuffle array function
   const shuffleArray = (array: CaseData[]) => {
@@ -101,31 +72,26 @@ const CaseMatchGame = () => {
   useEffect(() => {
     if (showDemonstration) {
       const demonstrateHints = async () => {
-        console.log('Starting hints demonstration...');
-        
         // Wait 2 seconds before starting demonstration
         await new Promise(resolve => setTimeout(resolve, 2000));
-        
+
         // Toggle 3 times with 1.2 second intervals
         for (let i = 0; i < 3; i++) {
-          console.log(`Demonstration toggle ${i + 1}`);
           setHintsMode(prev => !prev);
           await new Promise(resolve => setTimeout(resolve, 1200));
         }
-        
+
         // End with hints off
-        console.log('Ending demonstration with hints off');
         setHintsMode(false);
-        
+
         // Wait a bit more before completing
         await new Promise(resolve => setTimeout(resolve, 1000));
-        
+
         // Mark demonstration as completed
         localStorage.setItem('caseMatchHintsDemonstrated', 'true');
         setShowDemonstration(false);
-        console.log('Demonstration completed');
       };
-      
+
       demonstrateHints();
     }
   }, [showDemonstration]);
@@ -133,13 +99,6 @@ const CaseMatchGame = () => {
   const toggleHints = () => {
     setUserHasInteracted(true);
     setHintsMode(!hintsMode);
-  };
-
-  // Reset demonstration for testing (you can remove this later)
-  const resetDemonstration = () => {
-    localStorage.removeItem('caseMatchHintsDemonstrated');
-    setShowDemonstration(true);
-    setUserHasInteracted(false);
   };
 
   // Timer logic
@@ -533,16 +492,6 @@ const CaseMatchGame = () => {
         title={hintsMode ? "Sakrij hint (Hide hints)" : "Prikaži hint (Show hints)"}
       >
         <Lightbulb className={`w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 ${hintsMode ? 'fill-current' : ''}`} />
-      </motion.button>
-
-      {/* Temporary Reset Button for testing - remove this later */}
-      <motion.button
-        onClick={resetDemonstration}
-        className="fixed bottom-4 xs:bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-4 xs:left-6 sm:left-8 md:left-10 lg:left-12 bg-brutalist-red text-brutalist-white p-2 xs:p-3 sm:p-4 border-2 xs:border-3 sm:border-4 border-brutalist-red text-xs xs:text-sm sm:text-base md:text-lg touch-target z-50"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-      >
-        RESET
       </motion.button>
     </div>
   );
